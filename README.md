@@ -14,3 +14,15 @@ If you choose to filter via track, then when you click on a track icon, the even
 Events can be filtered by **category** and **region** (only for Gold Cup events). By default, practice events are not included as there are **a ton of them**. 
 
 If you have questions or suggestions, please feel free to reach out or file an issue. I work on this and other BMX related projects in my spare time, so if you find yourself using the app a lot and want to help me out, feel free to send a [donation](https://paypal.me/jdnarvaez) :) 
+
+# Contributing
+
+Checkout the project and build/run it, then submit a PR
+
+```
+git clone https://github.com/jdnarvaez/race-day-app.git
+cd race-day-app
+npm install && npm run start
+```
+
+then open your browser to http://localhost:8080/race-day-app
