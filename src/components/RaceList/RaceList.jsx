@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Rnd } from 'react-rnd';
+import React from 'react';
+import { FixedSizeList as List } from 'react-window';
 
 import EventFilter from './EventFilter';
 import RaceRow from './RaceRow';
@@ -27,7 +27,14 @@ class RaceList extends React.PureComponent {
     window.removeEventListener('resize', this.onWindowResize)
   }
 
+  renderRow = ({ index, key, style }) => {
+    const { app, raceList } = this.props;
+    const race = raceList[index];
+    return (<div className="race-row-container" style={style}><RaceRow app={app} race={race} key={race.id.toString()} /></div>);
+  }
+
   render() {
+    const { renderRow } = this;
     const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters } = this.props;
     const { maxHeight } = this.state;
     const hasRaces = raceList && raceList.length > 0;
@@ -49,9 +56,14 @@ class RaceList extends React.PureComponent {
         <div className="region-filters">
           {regionFilterOptions.map((option) => <EventFilter filter={option} options={regionFilters} key={option} toggleFilter={app.toggleRegionFilter} />)}
         </div>
-        {raceList && <div className="details" style={{ maxHeight : `${maxHeight}px`}}>
-          {raceList.map((race) => <RaceRow app={app} race={race} key={race.id.toString()} />)}
-        </div>}
+        <List
+          height={raceList ? Math.min(maxHeight, raceList.length * 105) : 0}
+          itemCount={raceList ? raceList.length : 0}
+          itemSize={115}
+          width={375}
+        >
+          {renderRow}
+        </List>
       </div>
   	);
   }

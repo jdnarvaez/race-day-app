@@ -1,3 +1,8 @@
+.race-row-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .race-row {
   display: flex;
   flex-direction: row;

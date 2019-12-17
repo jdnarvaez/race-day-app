@@ -32,7 +32,7 @@ class RaceList extends React.PureComponent {
     const { app, race } = this.props;
 
     return (
-      <div className={`race-row ${race.category.replace(' ', '')} ${race.series.replace(' ', '')}` } key={race.id.toString()}>
+      <div className={`race-row ${race.category.replace(' ', '')} ${race.series.replace(' ', '')}` } key={race.id.toString()} style={this.props.style}>
         <div className="identifier">&nbsp;</div>
         <div className="content">
           <div className="region-container"><div className="region">{this.mapRegion(race.region)}</div></div>
