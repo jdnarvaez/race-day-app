@@ -85,7 +85,7 @@ const config = {
   entry : entry,
   mode : isDevServer ? 'development' : 'production',
   output: {
-    publicPath: '/',
+    publicPath: '/docs',
 		path: path.join(__dirname, "docs"),
 		filename: '[name].js'
 	},
