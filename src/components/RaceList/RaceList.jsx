@@ -57,7 +57,7 @@ class RaceList extends React.PureComponent {
           {regionFilterOptions.map((option) => <EventFilter filter={option} options={regionFilters} key={option} toggleFilter={app.toggleRegionFilter} />)}
         </div>
         <List
-          height={raceList ? Math.min(maxHeight, raceList.length * 105) : 0}
+          height={raceList ? Math.min(maxHeight, raceList.length * 115) : 0}
           itemCount={raceList ? raceList.length : 0}
           itemSize={115}
           width={375}
