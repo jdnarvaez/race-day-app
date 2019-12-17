@@ -15,7 +15,7 @@ class USABMX {
     const today = DateTime.fromJSDate(new Date());
 
     this.raceList =
-    fetch(`/docs/data/races.json`, { method : 'GET' })
+    fetch(`/race-day-app/data/races.json`, { method : 'GET' })
     .then((response) => response.json())
     .then((response) => response.map((race) => new Race(race)))
     .then((races) => races.filter((race) => race.begins_on >= today))
@@ -87,7 +87,7 @@ class USABMX {
     }
 
     this.trackList =
-    fetch(`/docs/data/tracks.json`, { method : 'GET' })
+    fetch(`/race-day-app/data/tracks.json`, { method : 'GET' })
     .then((response) => response.json())
     .then((tracks) => {
       return tracks.filter((track) => {
