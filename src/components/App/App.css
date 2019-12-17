@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,900&display=swap');
+
+html, body, #root, .app {
+  height: 100%;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+.app {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+  overflow: hidden;
+}
+
+.ripple:hover {
+  background: rgba(62, 67, 84, .25) radial-gradient(circle, transparent 1%, rgba(62, 67, 84, .25) 1%) center/15000%;
+}
+
+.ripple:active {
+  background-color: rgba(62, 67, 84, .9);
+  background-size: 100%;
+  transition: background 0s;
+}

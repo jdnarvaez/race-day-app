@@ -1,0 +1,62 @@
+.filter {
+  transition: all 250ms linear;
+  cursor: pointer;
+  border-right: 2px solid rgba(62, 67, 84, .8);
+  padding: 5px;
+  justify-content: center;
+  align-content: center;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: 400;
+  color: rgba(132, 137, 154, .5);
+  flex-grow: 1;
+  text-align: center;
+}
+
+.filter:last-child {
+  border-right: none;
+}
+
+.filter.active {
+  color: rgba(132, 137, 154, 1);
+}
+
+.filter.GoldCup {
+  border-bottom: 4px solid rgba(231, 222, 78, 0);
+}
+
+.filter.GoldCup.active {
+  border-bottom: 4px solid rgba(231, 222, 78, 1);
+}
+
+.filter.State {
+  border-bottom: 4px solid rgba(62, 136, 210, 0);
+}
+
+.filter.State.active {
+  border-bottom: 4px solid rgba(62, 136, 210, 1);
+}
+
+.filter.Multi {
+  border-bottom: 4px solid rgba(97, 210, 140, 0);
+}
+
+.filter.Multi.active {
+  border-bottom: 4px solid rgba(97, 210, 140, 1);
+}
+
+.filter.National {
+  border-bottom: 4px solid rgba(194, 52, 197, 0);
+}
+
+.filter.National.active {
+  border-bottom: 4px solid rgba(194, 52, 197, 1);
+}
+
+.filter.Practice {
+  border-bottom: 4px solid rgba(223, 58, 96, 0);
+}
+
+.filter.Practice.active {
+  border-bottom: 4px solid rgba(223, 58, 96, 1);
+}

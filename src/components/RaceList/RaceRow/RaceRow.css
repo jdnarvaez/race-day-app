@@ -1,0 +1,127 @@
+.race-row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  background: rgba(38, 41, 54, .9);
+  border: 2px solid rgba(62, 67, 84, .9);
+  border-radius: 10px;
+  height: 105px;
+  min-height: 105px;
+  cursor: default;
+}
+
+/** Race Categories/Series */
+.race-row > .identifier {
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.race-row.GoldCup > .identifier {
+  border-left: 4px solid rgb(231, 222, 78);
+}
+
+.race-row.State > .identifier, .race-row.StateChampionship > .identifier, .race-row.ProvincialChampionship > .identifier {
+  border-left: 4px solid rgb(62, 136, 210);
+}
+
+.race-row.Multi > .identifier {
+  border-left: 4px solid rgb(97, 210, 140);
+}
+
+.race-row.National > .identifier {
+  border-left: 4px solid rgb(194, 52, 197);
+}
+
+.race-row.Practice > .identifier {
+  border-left: 4px solid rgb(223, 58, 96);
+}
+
+.race-row.Non-RidingEvent > .identifier {
+
+}
+
+.race-row > .content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.race-row > .content > .region-container {
+  margin-bottom: 5px;
+}
+
+.race-row > .content > .region-container > .region {
+  height: 100%;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(62, 67, 84, .8);
+  color: rgba(102, 107, 124, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 13px;
+  font-size: 50px;
+  letter-spacing: -3px;
+  font-weight: bold;
+}
+
+.race-row > .content > .details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  white-space: nowrap;
+  color: rgba(132, 137, 154, 1);
+}
+
+.race-row > .content > .details > .date-time {
+  display: flex;
+  flex-direction: column;
+}
+
+.race-row > .content > .details > .date-time > .date {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 25px;
+  letter-spacing: -1.5px;
+  margin-top: -7px;
+}
+
+.race-row > .content > .details > .date-time > .secondary {
+  display: flex;
+  align-items: center;
+  margin-top: -7px;
+  padding-bottom: 5px;
+}
+
+.race-row > .content > .details > .date-time > .secondary  > .day {
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: 400;
+  padding-right: 5px;
+}
+
+.race-row > .content > .details > .date-time > .secondary > .time {
+  font-weight: 100;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.race-row > .content > .details > .trackname {
+  cursor: pointer;
+}
+
+.race-row > .content > .details > .trackname, .race-row > .content > .details > .location {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.race-row > .content > .details > .location {
+  margin-top: -7px;
+}

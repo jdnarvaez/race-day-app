@@ -1,0 +1,28 @@
+.zoom-control {
+  transition: all 250ms linear;
+  color: rgba(62, 67, 84, 1);
+  background: rgba(38, 41, 54, .9);
+  border: 2px solid rgba(62, 67, 84, .9);
+  border-radius: 10px;
+  z-index: 1001;
+  font-size: 15px;
+  flex-grow: 1;
+  position: absolute;
+  left: 100px;
+  bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom-control > .plus {
+  border-bottom: 2px solid rgba(62, 67, 84, .9);
+}
+
+.zoom-control > .plus, .zoom-control > .minus {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.zoom-control > .plus.disabled, .zoom-control > .minus.disabled {
+  color: rgba(62, 67, 84, .25);
+}
