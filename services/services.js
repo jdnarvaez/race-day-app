@@ -22,13 +22,13 @@
     }
   }
 
-  router.all(`/docs/data/races.json`, (request, response) => {
+  router.all(`/race-day-app/data/races.json`, (request, response) => {
     const file = path.join(__dirname, '..', 'docs', `data`, `races.json`);
     response.setHeader('Content-Type', 'application/javascript');
     serveFile(file, response);
   });
 
-  router.all(`/docs/data/tracks.json`, (request, response) => {
+  router.all(`/race-day-app/data/tracks.json`, (request, response) => {
     const file = path.join(__dirname, '..', 'docs', `data`, `tracks.json`);
     response.setHeader('Content-Type', 'application/javascript');
     serveFile(file, response);

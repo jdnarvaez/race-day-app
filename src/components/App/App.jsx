@@ -48,7 +48,8 @@ class App extends React.Component {
       raceList : undefined,
       loaded : false,
       searchMode : 'location',
-      widgets : ['NationalCount', 'TrackCount', 'EventCount', 'DistrictCount']
+      widgets : ['NationalCount', 'TrackCount', 'EventCount', 'DistrictCount'],
+      center : new LatLng(37.09024, -95.712891)
     };
 
     const categoryFilterOptions = ['National', 'Gold Cup', 'State', 'Multi', 'Practice'];
@@ -68,12 +69,6 @@ class App extends React.Component {
 
   closeRaceList = () => {
     this.setState({ raceList : undefined })
-  }
-
-  componentDidMount() {
-    USABMX.getTrackList().then((tracks) => {
-      this.setState({ tracks : tracks, bounds : new LatLngBounds(tracks.map(track => track.position)) });
-    })
   }
 
   setSearchMode = (mode) => {
@@ -104,13 +99,19 @@ class App extends React.Component {
 
   mapReady = (map) => {
     this.setState({ map : map.contextValue.map, currentZoom : map.contextValue.map.getZoom(), minZoom : map.contextValue.map.getMinZoom(), maxZoom : map.contextValue.map.getMaxZoom() }, () => {
-      const { searchMode, map } = this.state;
+      USABMX.getTrackList().then((tracks) => {
+        this.setState({ tracks : tracks, bounds : new LatLngBounds(tracks.map(track => track.position)) }, () => {
+          const { searchMode, map, bounds } = this.state;
+          map.invalidateSize();
+          map.fitBounds(bounds);
 
-      if (searchMode === 'currentLocation') {
-        this.searchByCurrentLocation();
-      } else if (searchMode === 'location') {
-        this.searchByLocation(map.getBounds());
-      }
+          if (searchMode === 'currentLocation') {
+            this.searchByCurrentLocation();
+          } else if (searchMode === 'location') {
+            this.searchByLocation(map.getBounds());
+          }
+        });
+      })
     });
   }
 
@@ -194,8 +195,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { searchMode, map, bounds, activeTrack, categoryFilters, regionFilters } = this.state;
+    const { searchMode, map, bounds, loaded, activeTrack, categoryFilters, regionFilters } = this.state;
 
+    if (!loaded) {
+      return;
+    }
+    
     if (prevState.searchMode !== searchMode) {
       App.storeSetting('searchMode', searchMode);
     }
@@ -234,7 +239,7 @@ class App extends React.Component {
       <div className="app">
         <Navigation app={this} height={this.state.height} searchMode={this.state.searchMode} />
         <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} className="main-panel">
-          {this.state.bounds && <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} bounds={this.state.bounds} key="map-panel" />}
+          <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
           <TrackInfo app={this} track={this.state.activeTrack} key="track-info" />
           <RaceList app={this} raceList={this.state.raceList} categoryFilterOptions={this.state.categoryFilterOptions} categoryFilters={this.state.categoryFilters} regionFilterOptions={this.state.regionFilterOptions} regionFilters={this.state.regionFilters} key="race-list" />
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />

@@ -25,13 +25,13 @@ class MapPanel extends React.PureComponent {
   }
 
   render() {
-    const { app, tracks, activeTrack, bounds, width, height } = this.props;
+    const { app, tracks, activeTrack, center, width, height } = this.props;
 
     return (
       <Map
         className="track-map"
         ref={this.mapRef}
-        bounds={bounds}
+        center={center}
         zoom={16}
         maxZoom={16}
         attributionControl={false}
@@ -46,7 +46,7 @@ class MapPanel extends React.PureComponent {
         onDblClick={this.mapDoubleClicked}
         style={{ width : `${width}px`, height : `${height}px`, borderRadius : '10px', margin : '0 auto', overflow : 'hidden' }}
       >
-        <TileLayer url={'http://{s}.tile.osm.org/{z}/{x}/{y}.png'} />
+        <TileLayer url={'https://{s}.tile.osm.org/{z}/{x}/{y}.png'} />
         {tracks.map((track) => {
           const icon = L.divIcon({
             className: `track-icon`,

@@ -91,7 +91,7 @@ const config = {
 	},
   devServer: {
     proxy: {
-      '/data': {
+      '/race-day-app/data': {
         target: `http://localhost:${freePort}`,
         secure: false
       }
