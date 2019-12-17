@@ -1,5 +1,5 @@
 # race-day-app
-Location Based USA BMX Race Planner
+[Location Based USA BMX Race Planner](http://jdnarvaez.github.io/race-day-app/)
 
 ![demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/demo.gif)
 
