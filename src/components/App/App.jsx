@@ -41,7 +41,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      width : innerWidth,
+      width : innerWidth - 77,
       height : innerHeight,
       tracks : [],
       activeTrack : undefined,
@@ -200,7 +200,7 @@ class App extends React.Component {
     if (!loaded) {
       return;
     }
-    
+
     if (prevState.searchMode !== searchMode) {
       App.storeSetting('searchMode', searchMode);
     }
