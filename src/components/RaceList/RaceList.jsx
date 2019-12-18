@@ -1,5 +1,8 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
+import { isMobileOnly } from 'react-device-detect';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowMaximize, faWindowMinimize, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import EventFilter from './EventFilter';
 import RaceRow from './RaceRow';
@@ -11,7 +14,8 @@ class RaceList extends React.PureComponent {
     super(props);
 
     this.state = {
-      maxHeight: innerHeight - 150
+      maxHeight: innerHeight - 150,
+      minimized: true
     }
   }
 
@@ -35,12 +39,34 @@ class RaceList extends React.PureComponent {
 
   render() {
     const { renderRow } = this;
-    const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters } = this.props;
-    const { maxHeight } = this.state;
+    const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters, activeTrack } = this.props;
+    const { maxHeight, minimized } = this.state;
     const hasRaces = raceList && raceList.length > 0;
+    const style = {};
+
+    if (isMobileOnly) {
+      style.width = `${innerWidth - 50}px`
+
+      if (activeTrack) {
+        style.top = `200px`;
+      }
+    }
+
+    var listHeight = 0;
+
+    if (isMobileOnly) {
+      if (raceList) {
+        if (!minimized) {
+          const maxListHeight = activeTrack ? innerHeight - 445 : innerHeight - 270;
+          listHeight = raceList ? Math.min(maxListHeight, raceList.length * 125) : 0;
+        }
+      }
+    } else {
+      listHeight = raceList ? Math.min(maxHeight, raceList.length * 115) : 0
+    }
 
     return (
-      <div className={`race-list ${raceList ? 'show' : 'hide'}`}>
+      <div className={`race-list ${raceList ? 'show' : 'hide'}`} style={style}>
         <div className={`header ${!hasRaces ? 'no-events' : '' }`}>
           <div className="title">
             {!hasRaces && <div className="caption">no events found</div>}
@@ -48,7 +74,15 @@ class RaceList extends React.PureComponent {
             {raceList && raceList.length === 1 && <div className="caption">event</div>}
             {raceList && raceList.length > 1 && <div className="caption">events</div>}
           </div>
-          <div className="close" onClick={(e) => app.closeRaceList()}>&times;</div>
+          {minimized && <div className="maximize" onClick={(e) => this.setState({ minimized : false })}>
+            <FontAwesomeIcon icon={faWindowMaximize} />
+          </div>}
+          {!minimized && <div className="minimize" onClick={(e) => this.setState({ minimized : true })}>
+            <FontAwesomeIcon icon={faWindowMinimize} />
+          </div>}
+          <div className="close" onClick={(e) => app.closeRaceList()}>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
         </div>
         <div className="filters">
           {categoryFilterOptions.map((option) => <EventFilter filter={option} options={categoryFilters} key={option} toggleFilter={app.toggleCategoryFilter} />)}
@@ -57,10 +91,11 @@ class RaceList extends React.PureComponent {
           {regionFilterOptions.map((option) => <EventFilter filter={option} options={regionFilters} key={option} toggleFilter={app.toggleRegionFilter} />)}
         </div>
         <List
-          height={raceList ? Math.min(maxHeight, raceList.length * 115) : 0}
+          className="race-row-list"
+          height={listHeight}
           itemCount={raceList ? raceList.length : 0}
           itemSize={115}
-          width={375}
+          width={isMobileOnly ? (innerWidth - 50) : 375}
         >
           {renderRow}
         </List>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationArrow, faMapMarker, faMapMarked } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from 'rc-tooltip';

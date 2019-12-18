@@ -1,0 +1,39 @@
+.mobile-navigation {
+  z-index: 999;
+  transition: all 500ms ease-in-out;
+  background: rgba(38, 41, 54, 1);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  color: rgba(62, 67, 84, 1);
+  border-right: 2px solid rgba(44, 49, 64, 1);
+}
+
+.mobile-navigation.collapsed {
+  height: 75px;
+  min-height: 75px;
+}
+
+.mobile-navigation > .app-logo {
+  text-transform: uppercase;
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  font-weight: 900;
+  letter-spacing: -4px;
+  font-size: 68px;
+}
+
+.mobile-navigation > .btn {
+  cursor: pointer;
+  padding: 10px;
+  border-right: 2px solid rgba(44, 49, 64, 1);
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.mobile-navigation > .btn.active {
+  color : rgb(101, 219, 146);
+}

@@ -32,7 +32,7 @@ class MapPanel extends React.PureComponent {
         className="track-map"
         ref={this.mapRef}
         center={center}
-        zoom={16}
+        zoom={14}
         maxZoom={16}
         attributionControl={false}
         zoomControl={false}

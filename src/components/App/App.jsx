@@ -2,12 +2,15 @@ import React, { useReducer, useEffect, useState } from 'react';
 import { LatLng, LatLngBounds } from 'leaflet';
 import { Rnd } from 'react-rnd';
 import ReactResizeDetector from 'react-resize-detector';
+import { BrowserView, MobileOnlyView, isMobileOnly } from 'react-device-detect';
 
 import USABMX from '../../services/USABMX';
 import LoadingIndicator from '../LoadingIndicator';
 import Navigation from '../Navigation';
+import MobileNavigation from '../MobileNavigation';
 import MapPanel from '../MapPanel';
 import TrackInfo from '../TrackInfo';
+import MobileTrackInfo from '../MobileTrackInfo';
 import RaceList from '../RaceList';
 import ZoomControl from '../ZoomControl';
 
@@ -41,8 +44,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      width : innerWidth - 77,
-      height : innerHeight,
+      width : isMobileOnly ? innerWidth : (innerWidth - 77),
+      height : isMobileOnly ? (innerHeight - 77) : innerHeight,
       tracks : [],
       activeTrack : undefined,
       raceList : undefined,
@@ -132,7 +135,7 @@ class App extends React.Component {
   searchByCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { map } = this.state;
-      map.setView(new LatLng(position.coords.latitude, position.coords.longitude), 10, { animate : true });
+      map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobileOnly ? 8 : 10, { animate : true });
       this.searchByLocation(map.getBounds());
     })
   }
@@ -237,14 +240,31 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Navigation app={this} height={this.state.height} searchMode={this.state.searchMode} />
-        <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} className="main-panel">
+        <BrowserView style={{ width: '100%', height : '100%', overflow : 'hidden', display : 'flex', flexDirection : 'row' }}>
+          <Navigation app={this} height={this.state.height} searchMode={this.state.searchMode} />
+          <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} className="main-panel">
+            <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
+            <TrackInfo app={this} track={this.state.activeTrack} key="track-info" />
+            <RaceList app={this} raceList={this.state.raceList} categoryFilterOptions={this.state.categoryFilterOptions} categoryFilters={this.state.categoryFilters} regionFilterOptions={this.state.regionFilterOptions} regionFilters={this.state.regionFilters} key="race-list" />
+            <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
+            {this.state.loaded && <ZoomControl map={this.state.map} minZoom={this.state.minZoom} maxZoom={this.state.maxZoom} currentZoom={this.state.currentZoom} key="zoom-control" />}
+          </ReactResizeDetector>
+        </BrowserView>
+        <MobileOnlyView style={{ width: '100%', height : '100%', overflow : 'hidden', display : 'flex', flexDirection : 'column' }}>
           <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
-          <TrackInfo app={this} track={this.state.activeTrack} key="track-info" />
-          <RaceList app={this} raceList={this.state.raceList} categoryFilterOptions={this.state.categoryFilterOptions} categoryFilters={this.state.categoryFilters} regionFilterOptions={this.state.regionFilterOptions} regionFilters={this.state.regionFilters} key="race-list" />
+          <RaceList
+            app={this}
+            activeTrack={this.state.activeTrack}
+            raceList={this.state.raceList}
+            categoryFilterOptions={this.state.categoryFilterOptions}
+            categoryFilters={this.state.categoryFilters}
+            regionFilterOptions={this.state.regionFilterOptions}
+            regionFilters={this.state.regionFilters}
+            key="race-list" />
+          <MobileTrackInfo app={this} track={this.state.activeTrack} key="track-info" />
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
-          {this.state.loaded && <ZoomControl map={this.state.map} minZoom={this.state.minZoom} maxZoom={this.state.maxZoom} currentZoom={this.state.currentZoom} key="zoom-control" />}
-        </ReactResizeDetector>
+          <MobileNavigation app={this} width={this.state.height} searchMode={this.state.searchMode} />
+        </MobileOnlyView>
       </div>
     )
   }

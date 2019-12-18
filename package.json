@@ -1,6 +1,6 @@
 {
   "name": "race-day-app",
-  "version": "0.1.0-SNAPSHOT",
+  "version": "0.1.1-SNAPSHOT",
   "description": "Race Day Web App",
   "scripts": {
     "fetch-data": "npx ./scripts/fetch-data.js",
@@ -27,6 +27,7 @@
     "luxon": "^1.21.3",
     "rc-tooltip": "^4.0.0-alpha.3",
     "react": "^16.9.0",
+    "react-device-detect": "^1.11.14",
     "react-dom": "^16.9.0",
     "react-leaflet": "^2.4.0",
     "react-resize-detector": "^4.2.1",

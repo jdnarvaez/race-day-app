@@ -8,12 +8,6 @@ body {
   font-family: 'Oswald', sans-serif;
 }
 
-.app {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-}
-
 /* Ripple effect */
 .ripple {
   background-position: center;

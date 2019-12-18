@@ -1,0 +1,99 @@
+.mobile-track-info {
+  z-index: 999;
+  transition: opacity 500ms ease-in-out;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  background: rgba(38, 41, 54, .9);
+  border: 2px solid rgba(62, 67, 84, .9);
+  color: rgba(132, 137, 154, 1);
+  text-transform: uppercase;
+  position: fixed;
+  top: 25px;
+  left : 25px;
+  height: 150px;
+}
+
+.mobile-track-info.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobile-track-info.show {
+  opacity: 1;
+}
+
+.mobile-track-info > .close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  align-self: center;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 25px;
+  font-family: Arial;
+}
+
+.mobile-track-info > .detail-layout {
+  cursor: default;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100% - 26px);
+  padding: 10px;
+  padding-bottom: 5px;
+}
+
+.mobile-track-info > .detail-layout > .district-container {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-track-info > .detail-layout > .district-container > .district {
+  padding-right: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(62, 67, 84, .8);
+  color: rgba(102, 107, 124, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 13px;
+  font-size: 50px;
+  letter-spacing: -4px;
+  font-weight: bold;
+}
+
+.mobile-track-info > .detail-layout > .details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  margin-right: 40px;
+  overflow: hidden;
+}
+
+.mobile-track-info > .detail-layout > .details > .trackname {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 30px;
+}
+
+.mobile-track-info > .detail-layout > .details > .state {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+.mobile-track-info > .detail-layout > .details > .operator, .mobile-track-info > .detail-layout > .details > .phone, .mobile-track-info > .detail-layout > .details > .email, .mobile-track-info > .detail-layout > .details > .url {
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: -1px;
+}
+
+.mobile-track-info > .detail-layout > .details > .email, .mobile-track-info > .detail-layout > .details > .url {
+  cursor: pointer;
+}

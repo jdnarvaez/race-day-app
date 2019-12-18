@@ -1,16 +1,12 @@
 import React from 'react';
-import { Rnd } from 'react-rnd';
-import './TrackInfo.css';
+import './MobileTrackInfo.css';
 
-class TrackInfo extends React.PureComponent {
+class MobileTrackInfo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      x : 100,
-      y : 25,
-      width : 450,
-      height : 180
+      width : innerWidth - 50,
     }
   }
 
@@ -33,20 +29,10 @@ class TrackInfo extends React.PureComponent {
   render() {
     const { openTrackEmail, openTrackUrl } = this;
     const { app, track } = this.props;
-    const { x, y, width, height } = this.state;
+    const { width } = this.state;
 
     return (
-      <Rnd
-        className={`track-info ${track ? 'show' : 'hide'}`}
-        size={{ width: width, height: height }}
-        position={{ x: x, y: y }}
-        onDragStop={(e, d) => {
-          this.setState({ x : d.x, y : d.y })
-        }}
-        onResizeStop={(e, direction, ref, delta, position) => {
-          this.setState({ x : position.x, y : position.y, width : Math.max(25, ref.style.width), height : Math.max(25, ref.style.height) })
-        }}
-      >
+      <div className={`mobile-track-info ${track ? 'show' : 'hide'}`} style={{ width : `${width}px`}}>
         <div className="close" onClick={(e) => app.setActiveTrack(undefined)}>&times;</div>
         {track && <div className="detail-layout">
           <div className="district-container"><div className="district">{track.district}</div></div>
@@ -59,9 +45,9 @@ class TrackInfo extends React.PureComponent {
             <div className="url" onClick={openTrackUrl}>{track.website_url}</div>
           </div>
         </div>}
-      </Rnd>
+      </div>
   	);
   }
 }
 
-export default TrackInfo;
+export default MobileTrackInfo;

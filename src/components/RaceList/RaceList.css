@@ -1,6 +1,6 @@
 .race-list {
   z-index: 999;
-  transition: opacity 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -80,8 +80,19 @@
   align-self: center;
   cursor: pointer;
   z-index: 1001;
-  font-size: 25px;
-  font-family: Arial;
+  font-size: 13px;
+}
+
+.race-list > .header > .minimize, .race-list > .header > .maximize {
+  padding-right: 12px;
+  align-self: center;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 10px;
+}
+
+.race-row-list {
+  transition: height 250ms linear;
 }
 
 .race-list > .details {
