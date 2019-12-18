@@ -32,10 +32,21 @@
   border-bottom: 2px solid rgba(44, 49, 64, 1);
   display: flex;
   justify-content: center;
+  min-height: 25px;
+  align-items: center;
 }
 
 .navigation > .btn.active {
   color : rgb(101, 219, 146);
+}
+
+.navigation > .btn.track-mode > .map-marker {
+  margin-left: 5px;
+}
+
+.navigation > .btn.track-mode > .list {
+  font-size: 12px;
+  margin-top: 15px;
 }
 
 .rc-tooltip {

@@ -32,14 +32,23 @@ class RaceList extends React.PureComponent {
     }
   }
 
-  addToCalendar = () => {
-    const { tracks, race } = this.props;
+  raceName = (race) => {
     var raceName = race.name;
 
     if (!raceName || raceName === '') {
-      raceName = `${race.region} ${race.category}`;
+      if (race.category === 'Practice') {
+        raceName = race.category
+      } else {
+        raceName = `${race.region} ${race.category}`;
+      }
     }
 
+    return raceName
+  }
+
+  addToCalendar = () => {
+    const { tracks, race } = this.props;
+    const raceName = this.raceName(race);
     const track = tracks.find((track) => track.name === race.trackname);
     const description = track ? [track.name, track.email, track.website_url].filter((prop) => !!prop).join(' ') : race.trackname;
 
@@ -69,12 +78,7 @@ class RaceList extends React.PureComponent {
   render() {
     const { addToCalendar } = this;
     const { app, race } = this.props;
-
-    var raceName = race.name;
-
-    if (!raceName || raceName === '') {
-      raceName = `${race.region} ${race.category}`;
-    }
+    const raceName = this.raceName(race);
 
     return (
       <div className={`race-row ${race.category.replace(' ', '')} ${race.series.replace(' ', '')}` } key={race.id.toString()} style={this.props.style}>
