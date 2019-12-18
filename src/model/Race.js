@@ -23,18 +23,3 @@ class Race {
 }
 
 export default Race;
-
-// begins_on: "2020-01-04"
-// category: "Gold Cup"
-// city: "South Jordan"
-// country: "USA"
-// ends_on: "2020-01-04"
-// id: 421953
-// name: ""
-// race_type: "Gold Cup"
-// region: "South West"
-// series: "Gold Cup"
-// starttime: 1578096000
-// state: "UT"
-// stoptime: 1578096000
-// trackname: "Rad Canyon BMX Indoor"
