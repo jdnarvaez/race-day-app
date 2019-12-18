@@ -134,7 +134,12 @@ class App extends React.Component {
 
   searchByCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      const { map } = this.state;
+      const { map, searchMode } = this.state;
+
+      if (searchMode !== 'currentLocation') {
+        return;
+      }
+      
       map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobileOnly ? 8 : 10, { animate : true });
       this.searchByLocation(map.getBounds());
     })

@@ -72,7 +72,7 @@ class RaceList extends React.PureComponent {
 
     var raceName = race.name;
 
-    if (raceName === '') {
+    if (!raceName || raceName === '') {
       raceName = `${race.region} ${race.category}`;
     }
 
