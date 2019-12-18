@@ -7,6 +7,14 @@ Supports both mobile and desktop browsers. OSX Safari may experience map issues.
 
 ![demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/demo.gif)
 
+![race-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/race-info.png)
+
+clicking on the **calendar** icon in the lower right of a race info display will create a calendar event, and clicking on the **track name** will open the **track info** display;
+
+![track-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/track-info.png)
+
+clicking on the track info **email** will open a new email to the operator, and clicking on the track's **url** will open their site in a new tab.
+
 # Using
 
 **Note**: This uses the open source OSM Tile Server, and as a result, map loading might be slow. 
