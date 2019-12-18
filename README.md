@@ -1,6 +1,10 @@
 # race-day-app
 [Location Based USA BMX Race Planner](http://jdnarvaez.github.io/race-day-app/)
 
+Supports both mobile and desktop browsers. OSX Safari may experience map issues.
+
+![mobile demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/mobile_demo.gif)
+
 ![demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/demo.gif)
 
 # Using
