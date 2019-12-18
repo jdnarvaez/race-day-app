@@ -7,14 +7,6 @@ Supports both mobile and desktop browsers. OSX Safari may experience map issues.
 
 ![demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/demo.gif)
 
-![race-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/race-info.png)
-
-clicking on the **calendar** icon in the lower right of a race info display will create a calendar event, and clicking on the **track name** will open the **track info** display;
-
-![track-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/track-info.png)
-
-clicking on the track info **email** will open a new email to the operator, and clicking on the track's **url** will open their site in a new tab.
-
 # Using
 
 **Note**: This uses the open source OSM Tile Server, and as a result, map loading might be slow. 
@@ -26,6 +18,14 @@ Location/current location work the same, only that when you select the current l
 If you choose to filter via track, then when you click on a track icon, the events for that particular venue will be displayed.
 
 Events can be filtered by **category** and **region** (only for Gold Cup events). By default, practice events are not included as there are **a ton of them**. 
+
+![race-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/race-info.png)
+
+clicking on the **calendar** icon in the lower right of a race info display will create a calendar event, and clicking on the **track name** will open the **track info** display;
+
+![track-info](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/track-info.png)
+
+clicking on the track info **email** will open a new email to the operator, and clicking on the track's **url** will open their site in a new tab.
 
 If you have questions or suggestions, please feel free to reach out or file an issue. I work on this and other BMX related projects in my spare time, so if you find yourself using the app a lot and want to help me out, feel free to send a [donation](https://paypal.me/jdnarvaez) :) 
 
