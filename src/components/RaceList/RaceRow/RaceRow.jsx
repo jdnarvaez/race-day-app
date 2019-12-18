@@ -65,10 +65,11 @@ class RaceList extends React.PureComponent {
       'DESCRIPTION:' + description,
       'LOCATION:' + race.trackname,
       'END:VEVENT',
-      'END:VCALENDAR'].join('\n'));
+      'END:VCALENDAR'
+    ].join('\n'));
 
-    let blob = new Blob([href], { type : 'text/calendar' })
-    let link = document.createElement('a');
+    const blob = new Blob([href], { type : 'text/calendar' })
+    const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download = `${raceName}.ics`;
     link.click();
