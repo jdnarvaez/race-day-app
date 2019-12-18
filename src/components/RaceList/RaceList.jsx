@@ -9,6 +9,8 @@ import RaceRow from './RaceRow';
 
 import './RaceList.css';
 
+const ROW_HEIGHT = 150;
+
 class RaceList extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -58,11 +60,11 @@ class RaceList extends React.PureComponent {
       if (raceList) {
         if (!minimized) {
           const maxListHeight = activeTrack ? innerHeight - 445 : innerHeight - 270;
-          listHeight = raceList ? Math.min(maxListHeight, raceList.length * 125) : 0;
+          listHeight = raceList ? Math.min(maxListHeight, raceList.length * ROW_HEIGHT) : 0;
         }
       }
     } else {
-      listHeight = raceList ? Math.min(maxHeight, raceList.length * 115) : 0
+      listHeight = raceList ? Math.min(maxHeight, raceList.length * ROW_HEIGHT - 10) : 0
     }
 
     return (
@@ -94,7 +96,7 @@ class RaceList extends React.PureComponent {
           className="race-row-list"
           height={listHeight}
           itemCount={raceList ? raceList.length : 0}
-          itemSize={115}
+          itemSize={ROW_HEIGHT - 10}
           width={isMobileOnly ? (innerWidth - 50) : 375}
         >
           {renderRow}

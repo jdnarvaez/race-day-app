@@ -11,8 +11,8 @@
   background: rgba(38, 41, 54, .9);
   border: 2px solid rgba(62, 67, 84, .9);
   border-radius: 10px;
-  height: 105px;
-  min-height: 105px;
+  height: 125px;
+  min-height: 125px;
   cursor: default;
 }
 
@@ -75,12 +75,37 @@
   font-weight: bold;
 }
 
+.race-row > .content > .add-to-calendar {
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  color: rgba(102, 107, 124, 1);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.race-row > .content > .add-to-calendar > .calendar-link {
+  color: rgba(102, 107, 124, 1);
+}
+
 .race-row > .content > .details {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   white-space: nowrap;
   color: rgba(132, 137, 154, 1);
+}
+
+.race-row > .content > .details > .racename {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 25px;
+  letter-spacing: -1.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -7px;
+  width: 230px;
 }
 
 .race-row > .content > .details > .date-time {
@@ -90,10 +115,9 @@
 
 .race-row > .content > .details > .date-time > .date {
   text-transform: uppercase;
-  font-weight: 900;
-  font-size: 25px;
-  letter-spacing: -1.5px;
-  margin-top: -7px;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -1px;
 }
 
 .race-row > .content > .details > .date-time > .secondary {
