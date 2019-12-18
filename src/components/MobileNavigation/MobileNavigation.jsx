@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationArrow, faMapMarker, faMapMarked } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faMapMarker, faMapMarked, faList } from '@fortawesome/free-solid-svg-icons';
 
 import './MobileNavigation.css';
 
@@ -25,8 +25,9 @@ class MobileNavigation extends React.PureComponent {
         <div className={`ripple btn ${searchMode === 'currentLocation' ? 'active' : ''}`} onClick={(e) => app.setSearchMode('currentLocation')}>
           <FontAwesomeIcon icon={faLocationArrow} className="icon" />
         </div>
-        <div className={`ripple btn ${searchMode === 'track' ? 'active' : ''}`} onClick={(e) => app.setSearchMode('track')}>
-          <FontAwesomeIcon icon={faMapMarker} className="icon" />
+        <div className={`ripple btn track-mode ${searchMode === 'track' ? 'active' : ''}`} onClick={(e) => app.setSearchMode('track')}>
+          <FontAwesomeIcon icon={faMapMarker} className="map-marker" />
+          <FontAwesomeIcon icon={faList} className="list" />
         </div>
         <div className="app-logo">race day</div>
       </div>

@@ -198,7 +198,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { searchMode, map, bounds, loaded, activeTrack, categoryFilters, regionFilters } = this.state;
+    const { tracks, searchMode, map, bounds, loaded, activeTrack, categoryFilters, regionFilters } = this.state;
 
     if (!loaded) {
       return;
@@ -210,15 +210,30 @@ class App extends React.Component {
 
     if (searchMode === 'location' && prevState.searchMode !== searchMode) {
       map.fitBounds(bounds, { animate : true });
-      this.searchByLocation(map.getBounds());
+
+      this.setState({ activeTrack : undefined }, () => {
+        this.searchByLocation(map.getBounds());
+      })
     } else if (searchMode === 'currentLocation' && prevState.searchMode !== searchMode) {
-      //TODO: navigator . current location, setup callback for getbounds then search on new bounds
-      this.searchByCurrentLocation();
+      this.setState({ activeTrack : undefined }, () => {
+        this.searchByCurrentLocation();
+      })
     } else if (searchMode === 'track' && prevState.searchMode !== searchMode) {
-      if (activeTrack) {
-        this.searchByTrack(activeTrack);
+      if (!activeTrack) {
+        const bounds = map.getBounds();
+        const track = tracks.find((track) => bounds.contains(track.position));
+
+        if (track) {
+          map.setView(track.position, 10, { animate : true });
+
+          this.setState({ activeTrack : track }, () => {
+            this.searchByTrack(track);
+          })
+        } else {
+          this.setState({ raceList : undefined });
+        }
       } else {
-        this.setState({ raceList : undefined });
+        this.searchByTrack(activeTrack);
       }
     } else if (categoryFilters !== prevState.categoryFilters || regionFilters !== prevState.regionFilters) {
       App.storeArraySetting('categoryFilters', categoryFilters.slice());

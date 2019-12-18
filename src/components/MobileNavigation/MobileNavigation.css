@@ -20,7 +20,7 @@
   bottom: -10px;
   right: 10px;
   font-weight: 900;
-  letter-spacing: -4px;
+  letter-spacing: -8px;
   font-size: 68px;
 }
 
@@ -36,4 +36,17 @@
 
 .mobile-navigation > .btn.active {
   color : rgb(101, 219, 146);
+}
+
+.mobile-navigation > .btn.track-mode {
+
+}
+
+.mobile-navigation > .btn.track-mode > .map-marker {
+  margin-top: -5px;
+}
+
+.mobile-navigation > .btn.track-mode > .list {
+  font-size: 12px;
+  margin-top: 15px;
 }
