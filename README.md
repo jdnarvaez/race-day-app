@@ -5,6 +5,8 @@
 
 # Using
 
+**Note**: This uses the open source OSM Tile Server, and as a result, map loading might be slow. 
+
 You can filter races by location, current location, or by track. 
 
 Location/current location work the same, only that when you select the current location option the browser attempts to locate you and then set the map view in your current area. As you pan/zoom the map, the event list will update accordingly. 
