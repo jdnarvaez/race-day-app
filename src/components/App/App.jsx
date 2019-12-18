@@ -260,7 +260,7 @@ class App extends React.Component {
           <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} className="main-panel">
             <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
             <TrackInfo app={this} track={this.state.activeTrack} key="track-info" />
-            <RaceList app={this} raceList={this.state.raceList} categoryFilterOptions={this.state.categoryFilterOptions} categoryFilters={this.state.categoryFilters} regionFilterOptions={this.state.regionFilterOptions} regionFilters={this.state.regionFilters} key="race-list" />
+            <RaceList app={this} tracks={this.state.tracks} raceList={this.state.raceList} categoryFilterOptions={this.state.categoryFilterOptions} categoryFilters={this.state.categoryFilters} regionFilterOptions={this.state.regionFilterOptions} regionFilters={this.state.regionFilters} key="race-list" />
             <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
             {this.state.loaded && <ZoomControl map={this.state.map} minZoom={this.state.minZoom} maxZoom={this.state.maxZoom} currentZoom={this.state.currentZoom} key="zoom-control" />}
           </ReactResizeDetector>
@@ -269,6 +269,7 @@ class App extends React.Component {
           <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
           <RaceList
             app={this}
+            tracks={this.state.tracks}
             activeTrack={this.state.activeTrack}
             raceList={this.state.raceList}
             categoryFilterOptions={this.state.categoryFilterOptions}

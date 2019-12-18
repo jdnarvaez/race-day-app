@@ -34,9 +34,9 @@ class RaceList extends React.PureComponent {
   }
 
   renderRow = ({ index, key, style }) => {
-    const { app, raceList } = this.props;
+    const { app, raceList, tracks } = this.props;
     const race = raceList[index];
-    return (<div className="race-row-container" style={style}><RaceRow app={app} race={race} key={race.id.toString()} /></div>);
+    return (<div className="race-row-container" style={style}><RaceRow app={app} race={race} tracks={tracks} key={race.id.toString()} /></div>);
   }
 
   render() {
@@ -76,10 +76,10 @@ class RaceList extends React.PureComponent {
             {raceList && raceList.length === 1 && <div className="caption">event</div>}
             {raceList && raceList.length > 1 && <div className="caption">events</div>}
           </div>
-          {minimized && <div className="maximize" onClick={(e) => this.setState({ minimized : false })}>
+          {isMobileOnly && minimized && <div className="maximize" onClick={(e) => this.setState({ minimized : false })}>
             <FontAwesomeIcon icon={faWindowMaximize} />
           </div>}
-          {!minimized && <div className="minimize" onClick={(e) => this.setState({ minimized : true })}>
+          {isMobileOnly && !minimized && <div className="minimize" onClick={(e) => this.setState({ minimized : true })}>
             <FontAwesomeIcon icon={faWindowMinimize} />
           </div>}
           <div className="close" onClick={(e) => app.closeRaceList()}>

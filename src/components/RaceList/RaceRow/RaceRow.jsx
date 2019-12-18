@@ -32,26 +32,42 @@ class RaceList extends React.PureComponent {
     }
   }
 
-  buildUrl = (race, raceName) => {
-    const calendarUrl = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "BEGIN:VEVENT",
-      "UID:" + uuid(),
-      "DTSTART:" + race.begins_on.toISO().replace(/-|:|\.\d+/g, ''),
-      "DTEND:" + race.ends_on.toISO().replace(/-|:|\.\d+/g, ''),
-      "SUMMARY:" + raceName,
-      "DESCRIPTION:" + 'USA BMX Event',
-      "LOCATION:" + race.trackname,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\n")
+  addToCalendar = () => {
+    const { tracks, race } = this.props;
+    var raceName = race.name;
 
-    return encodeURI(`data:text/calendar;charset=utf8,${calendarUrl}`);
+    if (!raceName || raceName === '') {
+      raceName = `${race.region} ${race.category}`;
+    }
+
+    const track = tracks.find((track) => track.name === race.trackname);
+    const description = track ? [track.name, track.email, track.website_url].filter((prop) => !!prop).join(' ') : race.trackname;
+
+    const href = ([
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'BEGIN:VEVENT',
+      'URL:' + document.URL,
+      'UID:' + uuid(),
+      'DTSTAMP:' + DateTime.fromJSDate(new Date).toISO().replace(/-|:|\.\d+/g, '').split('T')[0],
+      'DTSTART:' + race.begins_on.toISO().replace(/-|:|\.\d+/g, '').split('T')[0],
+      'DTEND:' + race.ends_on.toISO().replace(/-|:|\.\d+/g, '').split('T')[0],
+      'SUMMARY:' + raceName,
+      'DESCRIPTION:' + description,
+      'LOCATION:' + race.trackname,
+      'END:VEVENT',
+      'END:VCALENDAR'].join('\n'));
+
+    let blob = new Blob([href], { type : 'text/calendar' })
+    let link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `${raceName}.ics`;
+    link.click();
+    link.remove();
   }
 
   render() {
-    const { buildUrl } = this;
+    const { addToCalendar } = this;
     const { app, race } = this.props;
 
     var raceName = race.name;
@@ -77,8 +93,8 @@ class RaceList extends React.PureComponent {
             <div className="trackname" onClick={(e) => app.showTrackWithName(race.trackname)}>{race.trackname}</div>
             <div className="location">{`${race.city}, ${race.state}, ${race.country}`}</div>
           </div>
-          <div className="add-to-calendar">
-            <a href={buildUrl(race, raceName)} className="calendar-link"><FontAwesomeIcon icon={faCalendar} /></a>
+          <div className="add-to-calendar" onClick={addToCalendar}>
+            <FontAwesomeIcon icon={faCalendar} />
           </div>
         </div>
       </div>
