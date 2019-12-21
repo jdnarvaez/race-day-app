@@ -96,7 +96,7 @@ class USABMX {
       }
 
       this.raceList = new Promise((resolve, reject) => {
-        cordovaFetch(`http://www.usabmx.com/mobile/ios/race_list_json2.php`)
+        cordovaFetch(`https://www.usabmx.com/mobile/ios/race_list_json2.php`)
         .then((response) => response.json())
         .then((races) => {
           return this.deleteFile('races.json').then(() => {
@@ -139,7 +139,7 @@ class USABMX {
   }
 
   getTracksForStateNative = (state) => {
-    return cordovaFetch(`http://www.usabmx.com/mobile/ios/track_list_jsonv2.php?state=${state}`).then((response) => response.json())
+    return cordovaFetch(`https://www.usabmx.com/mobile/ios/track_list_jsonv2.php?state=${state}`).then((response) => response.json())
   }
 
   fetchTracksNative = (tracks, codes, resolve, reject) => {
@@ -187,7 +187,7 @@ class USABMX {
       this.trackList = new Promise((resolve, reject) => {
         const tracks = [];
 
-        cordovaFetch(`http://www.usabmx.com/mobile/ios/track_list_dropdown.php`)
+        cordovaFetch(`https://www.usabmx.com/mobile/ios/track_list_dropdown.php`)
         .then((response) => response.json())
         .then((states) => {
           const codes = states.filter((state) => state.name !== '').map((state) => state.code);

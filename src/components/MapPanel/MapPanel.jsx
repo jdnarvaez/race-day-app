@@ -24,6 +24,14 @@ class MapPanel extends React.PureComponent {
     this.mapRef = React.createRef();
   }
 
+  openAttribution = () => {
+    if (window.cordova) {
+      cordova.InAppBrowser.open.open("https://osm.org/copyright", "_system", { usewkwebview : 'yes' });
+    } else {
+      window.open("https://osm.org/copyright", "_system");
+    }
+  }
+
   render() {
     const { app, tracks, activeTrack, center, width, height } = this.props;
 
@@ -59,6 +67,7 @@ class MapPanel extends React.PureComponent {
             </LayerGroup>
           )
         })}
+        <div className="attribution" onClick={this.openAttribution} style={{ bottom : isMobileOnly ? '2px' : '5px' }}>OpenStreetMap contributors</div>
       </Map>
   	);
   }

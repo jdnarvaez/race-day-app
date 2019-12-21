@@ -1,7 +1,7 @@
 import React from 'react';
 import { Rnd } from 'react-rnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faDirections } from '@fortawesome/free-solid-svg-icons';
 import './TrackInfo.css';
 
 class TrackInfo extends React.PureComponent {
@@ -48,7 +48,7 @@ class TrackInfo extends React.PureComponent {
   }
 
   render() {
-    const { openTrackEmail, openTrackUrl } = this;
+    const { openTrackEmail, openTrackUrl, navigateTo } = this;
     const { app, track } = this.props;
     const { x, y, width, height } = this.state;
 
