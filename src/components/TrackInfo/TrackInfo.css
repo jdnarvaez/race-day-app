@@ -30,6 +30,17 @@
   font-family: Arial;
 }
 
+.track-info > .get-directions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  align-self: center;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 15px;
+  color: rgba(102, 107, 124, 1);
+}
+
 .track-info > .detail-layout {
   cursor: default;
   z-index: 1000;
@@ -62,6 +73,10 @@
   font-weight: bold;
 }
 
+.track-info.mobile > .detail-layout > .district-container > .district {
+  letter-spacing: -7px;
+}
+
 .track-info > .detail-layout > .details {
   flex-grow: 1;
   display: flex;
@@ -76,6 +91,10 @@
   font-weight: 900;
   letter-spacing: -2px;
   line-height: 30px;
+}
+
+.track-info.mobile > .detail-layout > .details > .trackname {
+  letter-spacing: -3px;
 }
 
 .track-info > .detail-layout > .details > .state {

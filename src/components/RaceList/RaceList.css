@@ -12,6 +12,10 @@
   width: 375px;
 }
 
+.race-list.trackLocator {
+  transform: translate(-200%, 0%);
+}
+
 .race-list.hide {
   opacity: 0;
   pointer-events: none;
@@ -75,12 +79,12 @@
   text-transform: uppercase;
 }
 
-.race-list > .header > .close {
+.race-list > .header > .close, .race-list > .header > .refresh {
   padding-right: 12px;
   align-self: center;
   cursor: pointer;
   z-index: 1001;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 .race-list > .header > .minimize, .race-list > .header > .maximize {
@@ -98,6 +102,7 @@
 .race-list > .details {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   border-radius: 10px;
 }

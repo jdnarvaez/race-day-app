@@ -1,28 +1,47 @@
 {
-  "name": "race-day-app",
-  "version": "0.1.1-SNAPSHOT",
-  "description": "Race Day Web App",
+  "name": "com.elevate.raceday",
+  "displayName": "Race Day BMX",
+  "version": "0.1.2-SNAPSHOT",
+  "description": "Location Based USA BMX Race Planning",
+  "main": "index.js",
   "scripts": {
     "fetch-data": "npx ./scripts/fetch-data.js",
     "start": "webpack-dev-server --config webpack.config.js --mode development",
-    "build": "webpack --config webpack.config.js --mode production"
+    "build": "webpack --config webpack.config.js --mode production",
+    "build:all": "cordova build; webpack --config webpack.config.js --mode development"
   },
-  "license": "MIT",
   "keywords": [
-    "USA BMX",
-    "USABMX",
     "BMX",
+    "USABMX",
+    "UCI",
+    "USA BMX",
     "planner",
-    "scheduler",
-    "race"
+    "cycling",
+    "ABA"
   ],
   "author": "Juan Narvaez",
+  "license": "Apache-2.0",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-brands-svg-icons": "^5.8.1",
     "@fortawesome/free-regular-svg-icons": "^5.8.1",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@mauron85/cordova-plugin-background-geolocation": "3.1.0",
+    "cordova": "9.0.0",
+    "cordova-ios": "^5.1.1",
+    "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-calendar": "^5.1.5",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-directions": "^0.4.4",
+    "cordova-plugin-fetch": "git+https://github.com/aporat/cordova-plugin-fetch.git",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-geolocation": "4.0.2",
+    "cordova-plugin-ionic-webview": "4.1.3",
+    "cordova-plugin-jsonstore": "git+https://github.com/ibm-bluemix-mobile-services/jsonstore-cordova.git",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-splashscreen": "5.0.3",
+    "cordova-plugin-statusbar": "2.4.3",
     "leaflet": "^1.5.1",
     "luxon": "^1.21.3",
     "rc-tooltip": "^4.0.0-alpha.3",
@@ -36,6 +55,7 @@
     "uuidv4": "^6.0.0"
   },
   "devDependencies": {
+    "cordova-plugin-whitelist": "^1.3.4",
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
@@ -73,5 +93,36 @@
     "webpack-dev-server": "^3.3.1",
     "webpack-node-externals": "^1.7.2",
     "worker-loader": "^1.1.1"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-fetch": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-background-geolocation": {
+        "GOOGLE_PLAY_SERVICES_VERSION": "11+",
+        "ANDROID_SUPPORT_LIBRARY_VERSION": "26+",
+        "ICON": "@mipmap/icon",
+        "SMALL_ICON": "@mipmap/icon",
+        "ACCOUNT_NAME": "@string/app_name",
+        "ACCOUNT_LABEL": "@string/app_name",
+        "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
+        "CONTENT_AUTHORITY": "$PACKAGE_NAME",
+        "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking",
+        "MOTION_USAGE_DESCRIPTION": "This app requires motion detection"
+      },
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-calendar": {},
+      "cordova-plugin-directions": {}
+    },
+    "platforms": [
+      "ios"
+    ]
   }
 }

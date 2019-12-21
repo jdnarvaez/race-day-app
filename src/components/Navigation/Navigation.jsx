@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationArrow, faMapMarker, faMapMarked, faList } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faMapMarker, faMapMarked, faList, faCompass } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from 'rc-tooltip';
 
 import './Navigation.css';
@@ -27,7 +27,7 @@ class Navigation extends React.PureComponent {
         </Tooltip>
         <Tooltip mouseEnterDelay={.5} mouseLeaveDelay={.5} placement="right" trigger={['hover']} overlay={<span>Search by Current Location</span>}>
           <div className={`ripple btn ${searchMode === 'currentLocation' ? 'active' : ''}`} onClick={(e) => app.setSearchMode('currentLocation')}>
-            <FontAwesomeIcon icon={faLocationArrow} className="icon" />
+            <FontAwesomeIcon icon={faCompass} className="icon" />
           </div>
         </Tooltip>
         <Tooltip mouseEnterDelay={.5} mouseLeaveDelay={.5} placement="right" trigger={['hover']} overlay={<span>Search by Track</span>}>

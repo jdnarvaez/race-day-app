@@ -3,6 +3,7 @@ import { LatLng, LatLngBounds } from 'leaflet';
 import { Rnd } from 'react-rnd';
 import ReactResizeDetector from 'react-resize-detector';
 import { BrowserView, MobileOnlyView, isMobileOnly } from 'react-device-detect';
+import { uuid } from 'uuidv4';
 
 import USABMX from '../../services/USABMX';
 import LoadingIndicator from '../LoadingIndicator';
@@ -13,6 +14,7 @@ import TrackInfo from '../TrackInfo';
 import MobileTrackInfo from '../MobileTrackInfo';
 import RaceList from '../RaceList';
 import ZoomControl from '../ZoomControl';
+import NearbyTrackList from '../NearbyTrackList';
 
 import TrackCount from '../Widgets/TrackCount';
 import EventCount from '../Widgets/EventCount';
@@ -52,7 +54,9 @@ class App extends React.Component {
       loaded : false,
       searchMode : 'location',
       widgets : ['NationalCount', 'TrackCount', 'EventCount', 'DistrictCount'],
-      center : new LatLng(37.09024, -95.712891)
+      center : new LatLng(37.09024, -95.712891),
+      nearbyTracks : [],
+      runningInBackgound: false
     };
 
     const categoryFilterOptions = ['National', 'Gold Cup', 'State', 'Multi', 'Practice'];
@@ -64,6 +68,173 @@ class App extends React.Component {
     const regionFilterOptions = ['North West', 'South West', 'North Central', 'South Central', 'North East', 'South East'];
     this.state.regionFilterOptions = regionFilterOptions;
     this.state.regionFilters = App.getArraySetting('regionFilters', regionFilterOptions.slice());
+
+    if (window.cordova) {
+      document.addEventListener("pause", () => {
+        this.setState({ runningInBackgound : true })
+      }, false);
+
+      document.addEventListener("resume", () => {
+        this.setState({ runningInBackgound : false })
+      }, false);
+    }
+  }
+
+  refreshData = () => {
+    const { searchMode } = this.state;
+
+    this.setState({ loaded : false, searchMode : 'loading' }, () => {
+      USABMX.markDirty();
+
+      USABMX.getTrackList().then((tracks) => {
+        this.setState({ loaded : true, tracks : tracks, searchMode : searchMode });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setState({ loaded : true, searchMode : searchMode });
+      })
+    })
+  }
+
+  findNearbyTracks = () => {
+    const { tracks, currentLocation, nearbyTracks, map, runningInBackgound } = this.state;
+    map.setView(currentLocation, 10, { animate : true });
+    const newNearbyTracks = tracks.filter((track) => track.position.distanceTo(currentLocation) <= 160934); // 100 miles
+
+    newNearbyTracks.sort((a, b) => {
+      const distanceA = a.position.distanceTo(currentLocation);
+      const distanceB = b.position.distanceTo(currentLocation);
+
+      if (distanceA < distanceB) {
+        return -1
+      }
+
+      return 1;
+    })
+
+    function arraysEqual(_arr1, _arr2) {
+      if (!Array.isArray(_arr1) || ! Array.isArray(_arr2) || _arr1.length !== _arr2.length) {
+        return false;
+      }
+
+      var arr1 = _arr1.concat().sort();
+      var arr2 = _arr2.concat().sort();
+
+      for (var i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    if (!arraysEqual(nearbyTracks, newNearbyTracks)) {
+      const newTracks = newNearbyTracks.filter((track) => nearbyTracks.indexOf(track) < 0);
+
+      if (runningInBackgound) {
+        cordova.plugins.notification.local.schedule({
+          title: 'Nearby BMX Tracks',
+          text: `You are near ${newTracks.join(', ')}, check it out!`,
+        });
+      }
+
+      map.fitBounds(new LatLngBounds(newNearbyTracks.map(track => track.position)));
+      this.setState({ nearbyTracks : newNearbyTracks });
+    }
+  }
+
+  startTrackingLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({ currentLocation : new LatLng(position.coords.latitude, position.coords.longitude) }, () => {
+        const { searchMode } = this.state;
+
+        if (searchMode === 'trackLocator') {
+          this.findNearbyTracks();
+
+          BackgroundGeolocation.configure({
+            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
+            desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+            stationaryRadius: 50,
+            distanceFilter: 50,
+            notificationTitle: 'Searching for Tracks',
+            notificationText: 'enabled',
+            debug: false,
+            interval: 10000,
+            fastestInterval: 5000,
+            activitiesInterval: 10000
+          });
+
+          BackgroundGeolocation.on('location', (location) => {
+            this.setState({ currentLocation : new LatLng(location.latitude, location.longitude) }, () => {
+              BackgroundGeolocation.startTask((taskKey) => {
+                this.findNearbyTracks();
+                BackgroundGeolocation.endTask(taskKey);
+              });
+            })
+          });
+
+          BackgroundGeolocation.on('error', (error) => {
+            console.error('[ERROR] BackgroundGeolocation error:', error.code, error.message);
+          });
+
+          BackgroundGeolocation.on('start', () => {
+            console.log('[INFO] BackgroundGeolocation service has been started');
+          });
+
+          BackgroundGeolocation.on('stop', () => {
+            console.log('[INFO] BackgroundGeolocation service has been stopped');
+          });
+
+          BackgroundGeolocation.on('authorization', (status) => {
+            console.log('[INFO] BackgroundGeolocation authorization status: ' + status);
+
+            if (status !== BackgroundGeolocation.AUTHORIZED) {
+              // we need to set delay or otherwise alert may not be shown
+              setTimeout(() => {
+                var showSettings = confirm('Race Day needs your permission to track your location so that it can find tracks in your area. Would you like to open app settings?');
+
+                if (showSettings) {
+                  return BackgroundGeolocation.showAppSettings();
+                }
+              }, 1000);
+            }
+          });
+
+          BackgroundGeolocation.on('background', () => {
+            console.log('[INFO] App is in background');
+            this.setState({ runningInBackgound : true })
+          });
+
+          BackgroundGeolocation.on('foreground', () => {
+            console.log('[INFO] App is in foreground');
+            this.setState({ runningInBackgound : false })
+          });
+
+          BackgroundGeolocation.checkStatus((status) => {
+            console.log('[INFO] BackgroundGeolocation service is running', status.isRunning);
+            console.log('[INFO] BackgroundGeolocation services enabled', status.locationServicesEnabled);
+            console.log('[INFO] BackgroundGeolocation auth status: ' + status.authorization);
+
+            if (!status.isRunning) {
+              BackgroundGeolocation.start();
+            }
+          });
+        }
+      })
+    })
+  }
+
+  stopTrackingLocation = () => {
+    BackgroundGeolocation.checkStatus((status) => {
+      console.log('[INFO] BackgroundGeolocation service is running', status.isRunning);
+      console.log('[INFO] BackgroundGeolocation services enabled', status.locationServicesEnabled);
+      console.log('[INFO] BackgroundGeolocation auth status: ' + status.authorization);
+
+      if (status.isRunning) {
+        BackgroundGeolocation.stop();
+      }
+    });
   }
 
   onResize = (width, height) => {
@@ -80,8 +251,13 @@ class App extends React.Component {
 
   setActiveTrack = (track) => {
     const { searchMode } = this.state;
+    const nextState = { activeTrack : track };
 
-    this.setState({ activeTrack : track }, () => {
+    if (searchMode === 'trackLocator') {
+      nextState.searchMode = 'track';
+    }
+
+    this.setState(nextState, () => {
       if (searchMode !== 'track') {
         return;
       }
@@ -139,7 +315,7 @@ class App extends React.Component {
       if (searchMode !== 'currentLocation') {
         return;
       }
-      
+
       map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobileOnly ? 8 : 10, { animate : true });
       this.searchByLocation(map.getBounds());
     })
@@ -213,7 +389,13 @@ class App extends React.Component {
       App.storeSetting('searchMode', searchMode);
     }
 
-    if (searchMode === 'location' && prevState.searchMode !== searchMode) {
+    if (prevState.searchMode === 'trackLocator' && prevState.searchMode !== searchMode) {
+      this.stopTrackingLocation();
+    }
+
+    if (searchMode === 'trackLocator' && prevState.searchMode !== searchMode) {
+      this.startTrackingLocation();
+    } else if (searchMode === 'location' && prevState.searchMode !== searchMode) {
       map.fitBounds(bounds, { animate : true });
 
       this.setState({ activeTrack : undefined }, () => {
@@ -274,6 +456,7 @@ class App extends React.Component {
           <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
           <RaceList
             app={this}
+            searchMode={this.state.searchMode}
             tracks={this.state.tracks}
             activeTrack={this.state.activeTrack}
             raceList={this.state.raceList}
@@ -282,7 +465,13 @@ class App extends React.Component {
             regionFilterOptions={this.state.regionFilterOptions}
             regionFilters={this.state.regionFilters}
             key="race-list" />
-          <MobileTrackInfo app={this} track={this.state.activeTrack} key="track-info" />
+          <NearbyTrackList
+            app={this}
+            searchMode={this.state.searchMode}
+            nearbyTracks={this.state.nearbyTracks}
+            currentLocation={this.state.currentLocation}
+          />
+          <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
           <MobileNavigation app={this} width={this.state.height} searchMode={this.state.searchMode} />
         </MobileOnlyView>
@@ -290,6 +479,5 @@ class App extends React.Component {
     )
   }
 }
-
 
 export default App;

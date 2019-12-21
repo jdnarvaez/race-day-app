@@ -6,7 +6,7 @@
   flex-direction: row;
   width: 100%;
   color: rgba(62, 67, 84, 1);
-  border-right: 2px solid rgba(44, 49, 64, 1);
+  border-top: 2px solid rgba(44, 49, 64, 1);
 }
 
 .mobile-navigation.collapsed {
@@ -17,11 +17,11 @@
 .mobile-navigation > .app-logo {
   text-transform: uppercase;
   position: absolute;
-  bottom: -10px;
-  right: 10px;
+  bottom: -2.5px;
+  right: 12.5px;
   font-weight: 900;
   letter-spacing: -8px;
-  font-size: 68px;
+  font-size: 60px;
 }
 
 .mobile-navigation > .btn {

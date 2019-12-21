@@ -1,0 +1,70 @@
+{
+  "_from": "cordova-plugin-directions",
+  "_id": "cordova-plugin-directions@0.4.4",
+  "_inBundle": false,
+  "_integrity": "sha1-22qBvDi4G50Y407Naof9kByM9Mw=",
+  "_location": "/cordova-plugin-directions",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-directions",
+    "name": "cordova-plugin-directions",
+    "escapedName": "cordova-plugin-directions",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-directions/-/cordova-plugin-directions-0.4.4.tgz",
+  "_shasum": "db6a81bc38b81b9d18e34ecd6a87fd901c8cf4cc",
+  "_spec": "cordova-plugin-directions",
+  "_where": "/Users/jn015941/Workspaces/race-day-app",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/leecrossley/cordova-plugin-directions/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-directions",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Directions Plugin to utilise native maps for satnav style direction purposes (using latitude and longitude or address).",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/leecrossley/cordova-plugin-directions#readme",
+  "keywords": [
+    "cordova",
+    "direction",
+    "directions",
+    "map",
+    "maps",
+    "latitude",
+    "longitude",
+    "satnav",
+    "address",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-directions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leecrossley/cordova-plugin-directions.git"
+  },
+  "version": "0.4.4"
+}

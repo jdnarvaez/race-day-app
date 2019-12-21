@@ -2,7 +2,7 @@ import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 import { isMobileOnly } from 'react-device-detect';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowMaximize, faWindowMinimize, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faWindowMaximize, faWindowMinimize, faTimes, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import EventFilter from './EventFilter';
 import RaceRow from './RaceRow';
@@ -17,7 +17,8 @@ class RaceList extends React.PureComponent {
 
     this.state = {
       maxHeight: innerHeight - 150,
-      minimized: true
+      minimized: true,
+      isApp : window.cordova !== undefined
     }
   }
 
@@ -42,7 +43,7 @@ class RaceList extends React.PureComponent {
   render() {
     const { renderRow } = this;
     const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters, activeTrack } = this.props;
-    const { maxHeight, minimized } = this.state;
+    const { maxHeight, minimized, isApp } = this.state;
     const hasRaces = raceList && raceList.length > 0;
     const style = {};
 
@@ -50,7 +51,13 @@ class RaceList extends React.PureComponent {
       style.width = `${innerWidth - 50}px`
 
       if (activeTrack) {
-        style.top = `200px`;
+        if (isApp) {
+          style.top = `210px`;
+        } else {
+          style.top = `200px`;
+        }
+      } else if (isApp) {
+        style.top = `35px`;
       }
     }
 
@@ -59,7 +66,12 @@ class RaceList extends React.PureComponent {
     if (isMobileOnly) {
       if (raceList) {
         if (!minimized) {
-          const maxListHeight = activeTrack ? innerHeight - 445 : innerHeight - 270;
+          var maxListHeight = activeTrack ? innerHeight - 445 : innerHeight - 270;
+
+          if (isApp) {
+            maxListHeight -= 10;
+          }
+
           listHeight = raceList ? Math.min(maxListHeight, raceList.length * ROW_HEIGHT) : 0;
         }
       }
@@ -68,7 +80,7 @@ class RaceList extends React.PureComponent {
     }
 
     return (
-      <div className={`race-list ${raceList ? 'show' : 'hide'}`} style={style}>
+      <div className={`race-list ${raceList ? 'show' : 'hide'} ${this.props.searchMode}`} style={style}>
         <div className={`header ${!hasRaces ? 'no-events' : '' }`}>
           <div className="title">
             {!hasRaces && <div className="caption">no events found</div>}
@@ -82,6 +94,9 @@ class RaceList extends React.PureComponent {
           {isMobileOnly && !minimized && <div className="minimize" onClick={(e) => this.setState({ minimized : true })}>
             <FontAwesomeIcon icon={faWindowMinimize} />
           </div>}
+          <div className="refresh" onClick={(e) => app.refreshData()}>
+            <FontAwesomeIcon icon={faSync} />
+          </div>
           <div className="close" onClick={(e) => app.closeRaceList()}>
             <FontAwesomeIcon icon={faTimes} />
           </div>

@@ -1,0 +1,74 @@
+.nearby-track-list {
+  z-index: 999;
+  transition: all 500ms ease-in-out;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 1);
+  position: fixed;
+  left: 25px;
+  top: 35px;
+  width: calc(100% - 50px);
+}
+
+.nearby-track-list.hide {
+  transform: translate(200%, 0%);
+}
+
+.nearby-track-list.show {
+  transform: translate(0%, 0%);
+}
+
+.nearby-track-list > .header {
+  width: 100%;
+  background: rgba(38, 41, 54, .8);
+  border-radius: 10px;
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid rgba(62, 67, 84, .8);
+  color: rgba(132, 137, 154, 1);
+}
+
+.nearby-track-list > .header > .title {
+  flex-grow: 1;
+  padding-left: 12px;
+  display: flex;
+  font-size: 25px;
+}
+
+.nearby-track-list > .header > .title > .count {
+  font-weight: 500;
+  letter-spacing: -1px;
+  padding-right: 5px;
+}
+
+.nearby-track-list > .header > .title > .caption {
+  font-weight: 300;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.nearby-track-list > .header > .minimize, .nearby-track-list > .header > .maximize, .nearby-track-list > .header > .refresh {
+  padding-right: 12px;
+  align-self: center;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 10px;
+}
+
+.nearby-track-row-list {
+  transition: height 250ms linear;
+}
+
+.nearby-track-row-list.minimized {
+  pointer-events: none;
+}
+
+.nearby-track-list > .details {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 10px;
+}

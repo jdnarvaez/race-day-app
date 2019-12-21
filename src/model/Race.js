@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime, Duration  } from 'luxon';
 
 class Race {
   constructor(props) {
@@ -13,11 +13,11 @@ class Race {
     }
 
     if (props.starttime) {
-      this.starttime = DateTime.fromMillis(props.starttime * 1000);
+      this.starttime = DateTime.fromMillis(props.starttime * 1000).minus(Duration.fromMillis(3600000));
     }
 
     if (props.stoptime) {
-      this.stoptime = DateTime.fromMillis(props.stoptime * 1000);
+      this.stoptime = DateTime.fromMillis(props.stoptime * 1000).minus(Duration.fromMillis(3600000));
     }
   }
 }

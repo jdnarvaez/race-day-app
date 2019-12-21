@@ -77,7 +77,8 @@ plugins.push(new OptimizeCSSAssetsPlugin({
 }));
 
 plugins.push(new ServiceWorkerWebpackPlugin({
-  entry: path.join(__dirname, 'src', 'site', 'service-worker.js')
+  entry: path.join(__dirname, 'src', 'site', 'service-worker.js'),
+  publicPath: '/race-day-app'
 }))
 
 // Create the app-level configuration
@@ -169,4 +170,12 @@ const config = {
   }
 }
 
-module.exports = config;
+const iOSConfig = Object.assign({}, config,{
+  output: {
+    publicPath: 'app',
+		path: path.join(__dirname, "platforms", "ios", "www", "app"),
+		filename: '[name].js'
+	}
+});
+
+module.exports = isDevServer ? config : [config, iOSConfig];

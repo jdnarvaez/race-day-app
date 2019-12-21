@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faDirections } from '@fortawesome/free-solid-svg-icons';
 import './MobileTrackInfo.css';
 
 class MobileTrackInfo extends React.PureComponent {
@@ -26,14 +28,36 @@ class MobileTrackInfo extends React.PureComponent {
     }
   }
 
+  navigateTo = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { track } = this.props;
+
+    if (window.cordova) {
+      directions.navigateTo(track.position.lat, track.position.lng);
+    } else {
+      const link = document.createElement('a');
+      link.href = `geo:${track.position.lat},${track.position.lng}`;
+      link.click();
+      link.remove();
+    }
+  }
+
   render() {
-    const { openTrackEmail, openTrackUrl } = this;
+    const { openTrackEmail, openTrackUrl, navigateTo } = this;
     const { app, track } = this.props;
     const { width } = this.state;
+    const style = {
+      top : window.cordova ? '35px' : '25px',
+      width : `${innerWidth - 50}px`
+    }
 
     return (
-      <div className={`mobile-track-info ${track ? 'show' : 'hide'}`} style={{ width : `${width}px`}}>
-        <div className="close" onClick={(e) => app.setActiveTrack(undefined)}>&times;</div>
+      <div className={`mobile-track-info ${track ? 'show' : 'hide'} ${this.props.searchMode}`} style={{ width : `${width}px`}} style={style}>
+        <div className="close" onClick={(e) => app.setActiveTrack(undefined)}><FontAwesomeIcon icon={faTimes} /></div>
+        <div className="get-directions" onClick={navigateTo}>
+          <FontAwesomeIcon icon={faDirections} />
+        </div>
         {track && <div className="detail-layout">
           <div className="district-container"><div className="district">{track.district}</div></div>
           <div className="details">

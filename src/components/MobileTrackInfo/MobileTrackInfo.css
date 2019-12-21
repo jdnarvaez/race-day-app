@@ -9,9 +9,12 @@
   color: rgba(132, 137, 154, 1);
   text-transform: uppercase;
   position: fixed;
-  top: 25px;
   left : 25px;
   height: 150px;
+}
+
+.mobile-track-info.trackLocator {
+  transform: translate(-200%, 0%);
 }
 
 .mobile-track-info.hide {
@@ -25,13 +28,23 @@
 
 .mobile-track-info > .close {
   position: absolute;
-  right: 10px;
-  top: 5px;
+  right: 15px;
+  top: 10px;
   align-self: center;
   cursor: pointer;
   z-index: 1001;
-  font-size: 25px;
-  font-family: Arial;
+  font-size: 15px;
+}
+
+.mobile-track-info > .get-directions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  align-self: center;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 15px;
+  color: rgba(102, 107, 124, 1);
 }
 
 .mobile-track-info > .detail-layout {
@@ -62,7 +75,7 @@
   padding-left: 10px;
   padding-right: 13px;
   font-size: 50px;
-  letter-spacing: -4px;
+  letter-spacing: -7px;
   font-weight: bold;
 }
 
@@ -78,7 +91,7 @@
 .mobile-track-info > .detail-layout > .details > .trackname {
   font-size: 25px;
   font-weight: 900;
-  letter-spacing: -2px;
+  letter-spacing: -4px;
   line-height: 30px;
 }
 

@@ -1,0 +1,57 @@
+{
+  "_from": "git+https://github.com/aporat/cordova-plugin-fetch.git",
+  "_id": "cordova-plugin-fetch@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-fetch",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/aporat/cordova-plugin-fetch.git",
+    "rawSpec": "https://github.com/aporat/cordova-plugin-fetch.git",
+    "saveSpec": "git+https://github.com/aporat/cordova-plugin-fetch.git",
+    "fetchSpec": "https://github.com/aporat/cordova-plugin-fetch.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/aporat/cordova-plugin-fetch.git#c8a47fde8d04614505d504e36963f03b038243c1",
+  "_spec": "https://github.com/aporat/cordova-plugin-fetch.git",
+  "_where": "/Users/jn015941/Workspaces/race-day-mobile",
+  "author": {
+    "name": "Adar Porat"
+  },
+  "bugs": {
+    "url": "https://github.com/aporat/cordova-plugin-fetch/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "phonegap-plugin-fetch",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "HTTP networking plugin that brings the fetch() standard to Cordova",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/aporat/cordova-plugin-fetch#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "ecosystem:phonegap",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-fetch",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aporat/cordova-plugin-fetch.git"
+  },
+  "version": "1.0.0"
+}

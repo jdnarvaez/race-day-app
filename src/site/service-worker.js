@@ -1,7 +1,13 @@
 const RUNTIME = 'runtime';
 
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+});
+
 // The activate handler takes care of cleaning up old caches.
 self.addEventListener('activate', event => {
+  console.log('activating');
+  
   const currentCaches = [RUNTIME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -10,16 +16,15 @@ self.addEventListener('activate', event => {
       return Promise.all(cachesToDelete.map(cacheToDelete => {
         return caches.delete(cacheToDelete);
       }));
-    }).then(() => self.clients.claim())
+    }).then(() => {
+      console.log('claiming');
+      self.clients.claim()
+    })
   );
 });
 
-// The fetch handler serves responses for same-origin resources from a cache.
-// If no response is found, it populates the runtime cache with the response
-// from the network before returning it to the page.
 self.addEventListener('fetch', event => {
-  // Skip cross-origin requests, like those for Google Analytics.
-  if (event.request.url.indexOf('usabmx.com') >= 0 || event.request.url.indexOf('tile.osm.org') >= 0 || event.request.url.indexOf('fonts.googleapis.com') >= 0) {
+  if (event.request.url.indexOf('tile.osm.org') >= 0) {
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {
@@ -29,9 +34,13 @@ self.addEventListener('fetch', event => {
         return caches.open(RUNTIME).then(cache => {
           return fetch(event.request).then(response => {
             // Put a copy of the response in the runtime cache.
-            return cache.put(event.request, response.clone()).then(() => {
+            if (response.ok) {
+              return cache.put(event.request, response.clone()).then(() => {
+                return response;
+              });
+            } else {
               return response;
-            });
+            }
           });
         });
       })

@@ -11,16 +11,25 @@
   pointer-events: none;
   position: absolute;
   top: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .loading-indicator.hide {
   opacity: 0;
 }
 
-.loading-indicator-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.loading-indicator > .caption {
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 15px;
+  padding: 25px;
+  color:rgba(62, 67, 84, 1)
 }
 
 .loading-indicator-wave {

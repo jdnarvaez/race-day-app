@@ -44,7 +44,7 @@ class MapPanel extends React.PureComponent {
         onViewportChanged={(e) => app.onViewportChanged(e, this.mapRef.current)}
         whenReady={(e) => app.mapReady(this.mapRef.current)}
         onDblClick={this.mapDoubleClicked}
-        style={{ width : `${width}px`, height : `${height}px`, borderRadius : '10px', margin : '0 auto', overflow : 'hidden' }}
+        style={{ width : `${width}px`, height : `${height}px`, margin : '0 auto', overflow : 'hidden' }}
       >
         <TileLayer url={'https://{s}.tile.osm.org/{z}/{x}/{y}.png'} />
         {tracks.map((track) => {

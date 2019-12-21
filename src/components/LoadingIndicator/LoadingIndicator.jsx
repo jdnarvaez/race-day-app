@@ -14,13 +14,9 @@ class LoadingIndicator extends React.Component {
       left : isMobileOnly ? '0px' : '77px',
     };
 
-    const containerStyle = {
-      transform: isMobileOnly ? 'translate(-50%, calc(-50% - 37.5px))' : 'translate(calc(-50% - 37.5px), -50%)'
-    };
-
     return (
       <div className={`loading-indicator ${this.props.className}`} style={style}>
-        <div className="loading-indicator-container" style={containerStyle}>
+        <div className="loading-indicator-container">
           <div className="loading-indicator-wave">
             <div/>
             <div/>
@@ -34,6 +30,7 @@ class LoadingIndicator extends React.Component {
             <div/>
           </div>
         </div>
+        <div className="caption">Loading Tracks & Races...</div>
       </div>
     );
   }
