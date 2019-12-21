@@ -77,8 +77,6 @@ class App extends React.Component {
       document.addEventListener("resume", () => {
         this.setState({ runningInBackgound : false })
       }, false);
-
-      window.open = cordova.InAppBrowser.open;
     }
   }
 

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { LatLng } from 'leaflet';
 import { Map, GeoJSON, Popup, TileLayer, Marker, Polyline, LayerGroup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -26,7 +28,7 @@ class MapPanel extends React.PureComponent {
 
   openAttribution = () => {
     if (window.cordova) {
-      cordova.InAppBrowser.open.open("https://osm.org/copyright", "_system", { usewkwebview : 'yes' });
+      cordova.InAppBrowser.open("https://osm.org/copyright", "_system", { usewkwebview : 'yes' });
     } else {
       window.open("https://osm.org/copyright", "_system");
     }
@@ -67,7 +69,7 @@ class MapPanel extends React.PureComponent {
             </LayerGroup>
           )
         })}
-        <div className="attribution" onClick={this.openAttribution} style={{ bottom : isMobileOnly ? '2px' : '5px' }}>OpenStreetMap contributors</div>
+        <div className="attribution" onClick={this.openAttribution} style={{ bottom : window.cordova ? '2px' : '5px' }}><FontAwesomeIcon icon={faCopyright}/> OpenStreetMap contributors</div>
       </Map>
   	);
   }

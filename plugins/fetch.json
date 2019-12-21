@@ -137,5 +137,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/kleeb/cordova-plugin-inappbrowser.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

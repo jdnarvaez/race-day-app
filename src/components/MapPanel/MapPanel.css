@@ -6,8 +6,12 @@
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: -1px;
-  font-weight: 100;
+  font-weight: 900;
   color: rgba(102, 107, 124, 1);
+  z-index: 1000;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
 }
 .leaflet-container {
   background: rgba(38, 41, 54, 1)
