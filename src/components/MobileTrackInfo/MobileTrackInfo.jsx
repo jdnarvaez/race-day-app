@@ -12,6 +12,18 @@ class MobileTrackInfo extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  onOrientationChange = (e) => {
+    this.setState({ width : innerWidth - 50 })
+  }
+
   openTrackEmail = () => {
     const { track } = this.props;
 
@@ -47,9 +59,10 @@ class MobileTrackInfo extends React.PureComponent {
     const { openTrackEmail, openTrackUrl, navigateTo } = this;
     const { app, track } = this.props;
     const { width } = this.state;
+
     const style = {
       top : window.cordova ? '35px' : '25px',
-      width : `${innerWidth - 50}px`
+      width : `${width}px`
     }
 
     return (

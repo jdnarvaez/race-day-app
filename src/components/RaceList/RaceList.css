@@ -8,8 +8,6 @@
   position: fixed;
   right: 25px;
   top: 25px;
-  max-height: calc(100% - 50px);
-  width: 375px;
 }
 
 .race-list.trackLocator {

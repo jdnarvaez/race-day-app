@@ -15,6 +15,7 @@
   text-transform: uppercase;
   position: fixed;
   height: 125px;
+  width: 100%;
 }
 
 .track-row > .detail-layout {

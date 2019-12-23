@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useState } from 'react';
 import { LatLng, LatLngBounds } from 'leaflet';
 import { Rnd } from 'react-rnd';
 import ReactResizeDetector from 'react-resize-detector';
-import { BrowserView, MobileOnlyView, isMobileOnly } from 'react-device-detect';
+import { BrowserView, MobileOnlyView, MobileView, isMobile } from 'react-device-detect';
 import { uuid } from 'uuidv4';
 
 import USABMX from '../../services/USABMX';
@@ -46,8 +46,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      width : isMobileOnly ? innerWidth : (innerWidth - 77),
-      height : isMobileOnly ? (innerHeight - 77) : innerHeight,
+      width : isMobile ? innerWidth : (innerWidth - 77),
+      height : isMobile ? (innerHeight - 77) : innerHeight,
       tracks : [],
       activeTrack : undefined,
       raceList : undefined,
@@ -241,6 +241,18 @@ class App extends React.Component {
     this.setState({ width, height });
   }
 
+  componentDidMount() {
+    window.addEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  onOrientationChange = (e) => {
+    this.setState({ width : innerWidth, height : innerHeight })
+  }
+
   closeRaceList = () => {
     this.setState({ raceList : undefined })
   }
@@ -316,7 +328,7 @@ class App extends React.Component {
         return;
       }
 
-      map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobileOnly ? 8 : 10, { animate : true });
+      map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobile ? 8 : 10, { animate : true });
       this.searchByLocation(map.getBounds());
     })
   }
@@ -452,7 +464,7 @@ class App extends React.Component {
             {this.state.loaded && <ZoomControl map={this.state.map} minZoom={this.state.minZoom} maxZoom={this.state.maxZoom} currentZoom={this.state.currentZoom} key="zoom-control" />}
           </ReactResizeDetector>
         </BrowserView>
-        <MobileOnlyView style={{ width: '100%', height : '100%', overflow : 'hidden', display : 'flex', flexDirection : 'column' }}>
+        <MobileView style={{ width: '100%', height : '100%', overflow : 'hidden', display : 'flex', flexDirection : 'column' }}>
           <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
           <RaceList
             app={this}
@@ -474,7 +486,7 @@ class App extends React.Component {
           <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
           <MobileNavigation app={this} width={this.state.height} searchMode={this.state.searchMode} />
-        </MobileOnlyView>
+        </MobileView>
       </div>
     )
   }

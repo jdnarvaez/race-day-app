@@ -27,7 +27,7 @@ class TrackRow extends React.PureComponent {
     const { app, track, currentLocation } = this.props;
 
     return (
-      <div className={`track-row`} style={{ width : `${innerWidth - 50}px` }}>
+      <div className={`track-row`}>
         <div className="detail-layout">
           <div className="district-container"><div className="district">{track.district}</div></div>
           <div className="details">

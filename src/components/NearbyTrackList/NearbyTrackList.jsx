@@ -15,12 +15,34 @@ class NearbyTrackList extends React.PureComponent {
 
     this.state = {
       maxHeight: innerHeight - 77 - 25 - 25 - 70,
-      minimized: false
+      minimized: false,
+      width: innerWidth
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('orientationchange', this.onOrientationChange);
+  }
+
+  onOrientationChange = (e) => {
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
+
+    this.resizeTimeout = setTimeout(() => {
+      console.log(innerWidth)
+      console.log(innerHeight);
+      this.setState({ width : innerWidth, maxHeight : innerHeight - 77 - 25 - 25 - 70 })
+    }, 100)
   }
 
   renderRow = ({ index, key, style }) => {
     const { app, nearbyTracks, currentLocation } = this.props;
+
     const track = nearbyTracks[index];
     return (<div className="track-row-container" style={style} onClick={(e) => app.setActiveTrack(track)}><TrackRow app={app} track={track} currentLocation={currentLocation} key={track.id.toString()} /></div>);
   }
@@ -28,7 +50,7 @@ class NearbyTrackList extends React.PureComponent {
   render() {
     const { renderRow } = this;
     const { app, nearbyTracks } = this.props;
-    const { maxHeight, minimized } = this.state;
+    const { width, maxHeight, minimized } = this.state;
 
     return (
       <div className={`nearby-track-list ${this.props.searchMode === 'trackLocator' ? 'show' : 'hide'}`}>
@@ -54,7 +76,7 @@ class NearbyTrackList extends React.PureComponent {
           height={minimized ? 0 : Math.min(maxHeight, nearbyTracks.length * ROW_HEIGHT)}
           itemCount={nearbyTracks.length}
           itemSize={ROW_HEIGHT - 10}
-          width={innerWidth - 46}
+          width={width - 46}
         >
           {renderRow}
         </List>}

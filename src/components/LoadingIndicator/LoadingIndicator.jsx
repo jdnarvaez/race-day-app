@@ -1,5 +1,5 @@
 import React from 'react';
-import { isMobileOnly } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 import './LoadingIndicator.css';
 
@@ -11,7 +11,7 @@ class LoadingIndicator extends React.Component {
 
   render() {
     const style = {
-      left : isMobileOnly ? '0px' : '77px',
+      left : isMobile ? '0px' : '77px',
     };
 
     return (

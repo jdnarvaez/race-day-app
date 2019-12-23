@@ -6,7 +6,7 @@
   flex-direction: column;
   color: rgba(255, 255, 255, 1);
   position: fixed;
-  left: 25px;
+  right: 25px;
   top: 35px;
   width: calc(100% - 50px);
 }
