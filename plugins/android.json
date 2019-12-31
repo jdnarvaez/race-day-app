@@ -1,0 +1,64 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-background-geolocation": {
+      "GOOGLE_PLAY_SERVICES_VERSION": "11+",
+      "ANDROID_SUPPORT_LIBRARY_VERSION": "26+",
+      "ICON": "@mipmap/icon",
+      "SMALL_ICON": "@mipmap/icon",
+      "ACCOUNT_NAME": "@string/app_name",
+      "ACCOUNT_LABEL": "@string/app_name",
+      "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
+      "CONTENT_AUTHORITY": "$PACKAGE_NAME",
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-calendar": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-directions": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-fetch": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-ionic-webview": {
+      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.elevate.raceday"
+    }
+  }
+}

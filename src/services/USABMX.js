@@ -16,7 +16,7 @@ class USABMX {
 
   deleteFile = (file) => {
     return new Promise((resolve, reject) => {
-      resolveLocalFileSystemURL(cordova.file.syncedDataDirectory, (dir) => {
+      resolveLocalFileSystemURL(cordova.file.syncedDataDirectory || cordova.file.dataDirectory, (dir) => {
         dir.getFile(file, { create : false }, (fileEntry) => {
           fileEntry.remove(() => {
             resolve()
@@ -33,7 +33,7 @@ class USABMX {
 
   writeFile = (file, data) => {
     return new Promise((resolve, reject) => {
-      resolveLocalFileSystemURL(cordova.file.syncedDataDirectory, (directoryEntry) => {
+      resolveLocalFileSystemURL(cordova.file.syncedDataDirectory || cordova.file.dataDirectory, (directoryEntry) => {
         directoryEntry.getFile(file, { create : true }, (fileEntry) => {
             fileEntry.createWriter((fileWriter) => {
               fileWriter.onwriteend = function(e) {
@@ -65,7 +65,7 @@ class USABMX {
 
   readFile = (file) => {
     return new Promise((resolve, reject) => {
-      resolveLocalFileSystemURL(`${cordova.file.syncedDataDirectory}${file}`, (fileEntry) => {
+      resolveLocalFileSystemURL(`${cordova.file.syncedDataDirectory || cordova.file.dataDirectory}${file}`, (fileEntry) => {
         fileEntry.file((file) => {
           const reader = new FileReader();
 

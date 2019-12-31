@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDirections } from '@fortawesome/free-solid-svg-icons';
+import { isAndroid } from 'react-device-detect';
+
 import './TrackRow.css';
 
 class TrackRow extends React.PureComponent {
@@ -27,7 +29,7 @@ class TrackRow extends React.PureComponent {
     const { app, track, currentLocation } = this.props;
 
     return (
-      <div className={`track-row`}>
+      <div className={`track-row ${isAndroid ? 'android' : ''}`}>
         <div className="detail-layout">
           <div className="district-container"><div className="district">{track.district}</div></div>
           <div className="details">

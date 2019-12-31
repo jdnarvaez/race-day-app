@@ -34,8 +34,6 @@ class NearbyTrackList extends React.PureComponent {
     }
 
     this.resizeTimeout = setTimeout(() => {
-      console.log(innerWidth)
-      console.log(innerHeight);
       this.setState({ width : innerWidth, maxHeight : innerHeight - 77 - 25 - 25 - 70 })
     }, 100)
   }

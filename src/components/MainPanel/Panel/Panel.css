@@ -1,0 +1,17 @@
+.panel {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transition: all 250ms ease-in-out;
+  box-sizing: border-box;
+}
+
+.panel.left {
+  transform: translate(-200%, 0%);
+  overflow: hidden;
+}
+
+.panel.right {
+  transform: translate(200%, 0%);
+  overflow: hidden;
+}

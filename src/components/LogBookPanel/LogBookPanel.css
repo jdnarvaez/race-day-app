@@ -1,0 +1,181 @@
+.logbook {
+  display: flex;
+  flex-direction: column;
+  color: rgba(132, 137, 154, 1);
+  text-transform: uppercase;
+}
+
+.logbook > .header {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 35px;
+  font-size: 20px;
+}
+
+.logbook > .header > .barcode {
+
+}
+
+.logbook > .header > .plus {
+  margin-left: auto;
+}
+
+.logbook > .entries {
+  flex-grow: 1;
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.logbook > .entries > .entry {
+  border-radius: 10px;
+  border: 2px solid rgba(62, 67, 84, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.logbook > .entries > .entry > .header {
+  line-height: 1;
+}
+
+.logbook > .entries > .entry > .header > .title {
+  font-weight: 900;
+  letter-spacing: -1px;
+  font-size: 35px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.logbook > .entries > .entry > .header > .track {
+  font-weight: 100;
+  letter-spacing: -1px;
+  padding-left: 10px;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.logbook > .entries > .entry > .header > .date {
+  font-weight: 100;
+  letter-spacing: -1px;
+  padding-left: 10px;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.logbook > .entries > .entry > .header > .day {
+  font-weight: 100;
+  letter-spacing: -1px;
+  padding-left: 10px;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.logbook > .entries > .entry > .header > .category {
+  padding-left: 10px;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.logbook > .entries > .entry > .header > .points {
+  padding-left: 10px;
+  font-weight: 100;
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+
+.logbook > .entries > .entry > .riders {
+  flex-grow: 1;
+}
+
+.logbook > .entries > .entry > .riders > .rider {
+  border-top: 2px solid rgba(62, 67, 84, 1);
+}
+
+.logbook > .entries > .entry > .riders > .rider:last-child {
+  border-bottom: 2px solid rgba(62, 67, 84, 1);
+}
+
+.logbook > .entries > .entry > .riders > .rider > .header {
+  display: flex;
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .header > .name {
+  padding-left: 10px;
+  letter-spacing: -1px;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .header > .proficiency {
+  padding-left: 5px;
+  font-weight: 100;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .header > .add-rider {
+  margin-left: auto;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-between;
+  border-top: 1px solid rgba(62, 67, 84, 1);
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round {
+  border-right: 1px solid rgba(62, 67, 84, 1);
+  font-weight: 100;
+  letter-spacing: -.5px;
+  flex-grow: 1;
+  min-width: 38px;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round:last-child {
+  border-right: 0px;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .title, .logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .number {
+  border-bottom: 1px solid rgba(62, 67, 84, 1);
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > div {
+  min-height: 25px;
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 10px;
+}
+
+.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .title.fraction {
+  font-size: 11px;
+}
+
+.logbook > .entries > .entry > .footer {
+  border-top: 2px solid rgba(62, 67, 84, 1);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-end;
+}
+
+.logbook > .entries > .entry > .footer > .submitted {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+}
+
+.logbook > .entries > .entry > .footer > .submitted > .caption {
+  font-weight: 100;
+  letter-spacing: -.5px;
+  padding-right: 10px;
+}

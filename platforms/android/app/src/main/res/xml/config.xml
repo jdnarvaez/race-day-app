@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.elevate.raceday" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:mfp="http://www.ibm.com/mobilefirst/cordova-plugin-mfp">
+    <feature name="BackgroundGeolocation">
+        <param name="android-package" value="com.tenforwardconsulting.bgloc.cordova.BackgroundGeolocationPlugin" />
+    </feature>
+    <feature name="Calendar">
+        <param name="android-package" value="nl.xservices.plugins.Calendar" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="Directions">
+        <param name="android-package" value="uk.co.ilee.directions.Directions" />
+    </feature>
+    <feature name="FetchPlugin">
+        <param name="android-package" value="com.adobe.phonegap.fetch.FetchPlugin" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="LocalNotification">
+        <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Badge">
+        <param name="android-package" value="de.appplant.cordova.plugin.badge.Badge" />
+    </feature>
+    <allow-navigation href="http://localhost/*" />
+    <allow-navigation href="https://localhost/*" />
+    <allow-navigation href="ionic://*" />
+    <feature name="IonicWebView">
+        <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
+    </feature>
+    <name>Race Day BMX</name>
+    <description>
+        A location based USA BMX Event and Track Locator
+    </description>
+    <author email="juan.d.narvaez@gmail.com" href="https://github.com/jdnarvaez">
+        Juan Narvaez
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="blob:*" />
+    <allow-intent href="geo:*" />
+    <mfp:android>
+        <mfp:sdkChecksum>0</mfp:sdkChecksum>
+        <mfp:appChecksum>0</mfp:appChecksum>
+        <mfp:security>
+            <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+        </mfp:security>
+    </mfp:android>
+    <mfp:ios>
+        <mfp:sdkChecksum>2679820104</mfp:sdkChecksum>
+        <mfp:appChecksum>0</mfp:appChecksum>
+        <mfp:security>
+            <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+        </mfp:security>
+    </mfp:ios>
+    <mfp:windows>
+        <mfp:windows8>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windows8>
+        <mfp:windowsphone8>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windowsphone8>
+        <mfp:windows10>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windows10>
+        <mfp:appChecksum>0</mfp:appChecksum>
+    </mfp:windows>
+    <mfp:platformVersion>8.0.0.00-20191114-111308</mfp:platformVersion>
+    <mfp:clientCustomInit enabled="false" />
+    <mfp:server runtime="mfp" url="http://10.0.0.1:9080" />
+    <mfp:serverUri url="" />
+    <mfp:directUpdateAuthenticityPublicKey />
+    <mfp:languagePreferences>en</mfp:languagePreferences>
+    <mfp:APIproxyURL>/adapters/MobileAPIProxy</mfp:APIproxyURL>
+    <allow-intent href="market:*" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine" />
+</widget>

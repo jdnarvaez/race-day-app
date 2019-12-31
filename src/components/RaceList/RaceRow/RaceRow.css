@@ -126,6 +126,10 @@
   letter-spacing: -3.5px;
 }
 
+.race-row.android > .content > .details > .racename {
+  letter-spacing: -1.5px;
+}
+
 .race-row > .content > .details > .date-time {
   display: flex;
   flex-direction: column;

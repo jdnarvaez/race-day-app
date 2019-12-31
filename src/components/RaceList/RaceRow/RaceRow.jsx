@@ -3,6 +3,7 @@ import { DateTime, Duration } from 'luxon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faDirections } from '@fortawesome/free-solid-svg-icons';
 import { uuid } from 'uuidv4';
+import { isAndroid } from 'react-device-detect';
 
 import './RaceRow.css';
 
@@ -128,7 +129,7 @@ class RaceList extends React.PureComponent {
     const { app, race } = this.props;
 
     return (
-      <div className={`race-row ${race.category.replace(' ', '')} ${race.series.replace(' ', '')} ${window.cordova ? 'mobile' : ''}`} key={race.id.toString()} style={this.props.style}>
+      <div className={`race-row ${race.category.replace(' ', '')} ${race.series.replace(' ', '')} ${window.cordova ? 'mobile' : ''} ${isAndroid ? 'android' : ''}`} key={race.id.toString()} style={this.props.style}>
         <div className="identifier"></div>
         <div className="content">
           <div className="region-container"><div className="region">{this.mapRegion(race.region)}</div></div>

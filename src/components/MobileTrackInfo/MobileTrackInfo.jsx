@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faDirections } from '@fortawesome/free-solid-svg-icons';
+import { isAndroid } from 'react-device-detect';
+
 import './MobileTrackInfo.css';
 
 class MobileTrackInfo extends React.PureComponent {
@@ -66,7 +68,7 @@ class MobileTrackInfo extends React.PureComponent {
     }
 
     return (
-      <div className={`mobile-track-info ${track ? 'show' : 'hide'} ${this.props.searchMode}`} style={{ width : `${width}px`}} style={style}>
+      <div className={`mobile-track-info ${track ? 'show' : 'hide'} ${this.props.searchMode} ${isAndroid ? 'android' : ''}`} style={{ width : `${width}px`}} style={style}>
         <div className="close" onClick={(e) => app.setActiveTrack(undefined)}><FontAwesomeIcon icon={faTimes} /></div>
         <div className="get-directions" onClick={navigateTo}>
           <FontAwesomeIcon icon={faDirections} />

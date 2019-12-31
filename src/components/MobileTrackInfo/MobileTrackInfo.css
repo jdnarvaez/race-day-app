@@ -95,6 +95,10 @@
   line-height: 30px;
 }
 
+.mobile-track-info.android > .detail-layout > .details > .trackname {
+  letter-spacing: -1.5px;
+}
+
 .mobile-track-info > .detail-layout > .details > .state {
   font-size: 15px;
   font-weight: 400;

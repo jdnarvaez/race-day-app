@@ -16,6 +16,9 @@ import RaceList from '../RaceList';
 import ZoomControl from '../ZoomControl';
 import NearbyTrackList from '../NearbyTrackList';
 
+import MainPanel from '../MainPanel';
+import LogBookPanel from '../LogBookPanel';
+
 import TrackCount from '../Widgets/TrackCount';
 import EventCount from '../Widgets/EventCount';
 import NationalCount from '../Widgets/NationalCount';
@@ -56,7 +59,8 @@ class App extends React.Component {
       widgets : ['NationalCount', 'TrackCount', 'EventCount', 'DistrictCount'],
       center : new LatLng(37.09024, -95.712891),
       nearbyTracks : [],
-      runningInBackgound: false
+      runningInBackgound: false,
+      activePanelIndex: 0
     };
 
     const categoryFilterOptions = ['National', 'Gold Cup', 'State', 'Multi', 'Practice'];
@@ -77,7 +81,24 @@ class App extends React.Component {
       document.addEventListener("resume", () => {
         this.setState({ runningInBackgound : false })
       }, false);
+
+      BackgroundGeolocation.configure({
+        locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
+        desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+        stationaryRadius: 50,
+        distanceFilter: 50,
+        notificationTitle: 'Searching for Tracks',
+        notificationText: 'enabled',
+        debug: false,
+        interval: 10000,
+        fastestInterval: 5000,
+        activitiesInterval: 10000
+      });
     }
+  }
+
+  setActivePanelIndex = (activePanelIndex) => {
+    this.setState({ activePanelIndex });
   }
 
   refreshData = () => {
@@ -145,25 +166,12 @@ class App extends React.Component {
   }
 
   startTrackingLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({ currentLocation : new LatLng(position.coords.latitude, position.coords.longitude) }, () => {
+    BackgroundGeolocation.getCurrentLocation((position) => {
+      this.setState({ currentLocation : new LatLng(position.latitude, position.longitude) }, () => {
         const { searchMode } = this.state;
 
         if (searchMode === 'trackLocator') {
           this.findNearbyTracks();
-
-          BackgroundGeolocation.configure({
-            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
-            desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
-            notificationTitle: 'Searching for Tracks',
-            notificationText: 'enabled',
-            debug: false,
-            interval: 10000,
-            fastestInterval: 5000,
-            activitiesInterval: 10000
-          });
 
           BackgroundGeolocation.on('location', (location) => {
             this.setState({ currentLocation : new LatLng(location.latitude, location.longitude) }, () => {
@@ -222,7 +230,7 @@ class App extends React.Component {
           });
         }
       })
-    })
+    }, err => console.error(err));
   }
 
   stopTrackingLocation = () => {
@@ -258,7 +266,7 @@ class App extends React.Component {
   }
 
   setSearchMode = (mode) => {
-    this.setState({ searchMode : mode })
+    this.setState({ searchMode : mode, activePanelIndex : 0 })
   }
 
   setActiveTrack = (track) => {
@@ -321,16 +329,29 @@ class App extends React.Component {
   }
 
   searchByCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { map, searchMode } = this.state;
+    if (window.cordova) {
+      BackgroundGeolocation.getCurrentLocation((position) => {
+        const { map, searchMode } = this.state;
 
-      if (searchMode !== 'currentLocation') {
-        return;
-      }
+        if (searchMode !== 'currentLocation') {
+          return;
+        }
 
-      map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobile ? 8 : 10, { animate : true });
-      this.searchByLocation(map.getBounds());
-    })
+        map.setView(new LatLng(position.latitude, position.longitude), isMobile ? 8 : 10, { animate : true });
+        this.searchByLocation(map.getBounds());
+      }, err => console.error(err));
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { map, searchMode } = this.state;
+
+        if (searchMode !== 'currentLocation') {
+          return;
+        }
+
+        map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobile ? 8 : 10, { animate : true });
+        this.searchByLocation(map.getBounds());
+      })
+    }
   }
 
   searchByLocation = (bounds) => {
@@ -465,27 +486,32 @@ class App extends React.Component {
           </ReactResizeDetector>
         </BrowserView>
         <MobileView style={{ width: '100%', height : '100%', overflow : 'hidden', display : 'flex', flexDirection : 'column' }}>
-          <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
-          <RaceList
-            app={this}
-            searchMode={this.state.searchMode}
-            tracks={this.state.tracks}
-            activeTrack={this.state.activeTrack}
-            raceList={this.state.raceList}
-            categoryFilterOptions={this.state.categoryFilterOptions}
-            categoryFilters={this.state.categoryFilters}
-            regionFilterOptions={this.state.regionFilterOptions}
-            regionFilters={this.state.regionFilters}
-            key="race-list" />
-          <NearbyTrackList
-            app={this}
-            searchMode={this.state.searchMode}
-            nearbyTracks={this.state.nearbyTracks}
-            currentLocation={this.state.currentLocation}
-          />
-          <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
+          <MainPanel activePanelIndex={this.state.activePanelIndex} width={this.state.width} height={this.state.height}>
+            <React.Fragment>
+              <MapPanel app={this} tracks={this.state.tracks} activeTrack={this.state.activeTrack} width={this.state.width} height={this.state.height} center={this.state.center} key="map-panel" />
+              <RaceList
+                app={this}
+                searchMode={this.state.searchMode}
+                tracks={this.state.tracks}
+                activeTrack={this.state.activeTrack}
+                raceList={this.state.raceList}
+                categoryFilterOptions={this.state.categoryFilterOptions}
+                categoryFilters={this.state.categoryFilters}
+                regionFilterOptions={this.state.regionFilterOptions}
+                regionFilters={this.state.regionFilters}
+                key="race-list" />
+              <NearbyTrackList
+                app={this}
+                searchMode={this.state.searchMode}
+                nearbyTracks={this.state.nearbyTracks}
+                currentLocation={this.state.currentLocation}
+              />
+              <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
+            </React.Fragment>
+            <LogBookPanel app={this} tracks={this.state.tracks} raceList={this.state.raceList} key="logbook" />
+          </MainPanel>
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
-          <MobileNavigation app={this} width={this.state.height} searchMode={this.state.searchMode} />
+          <MobileNavigation app={this} width={this.state.width} searchMode={this.state.searchMode} activePanelIndex={this.state.activePanelIndex} />
         </MobileView>
       </div>
     )

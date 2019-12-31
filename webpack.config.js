@@ -178,4 +178,12 @@ const iOSConfig = Object.assign({}, config,{
 	}
 });
 
-module.exports = isDevServer ? config : [config, iOSConfig];
+const androidConfig = Object.assign({}, config,{
+  output: {
+    publicPath: 'app',
+		path: path.join(__dirname, 'platforms', 'android', 'app', 'src', 'main', 'assets', 'www', 'app'),
+		filename: '[name].js'
+	}
+});
+
+module.exports = isDevServer ? config : [config, iOSConfig, androidConfig];

@@ -1,0 +1,5 @@
+.main-panel {
+  transition: all 250ms ease-in-out;
+  position: relative;
+  flex-grow: 1;
+}
