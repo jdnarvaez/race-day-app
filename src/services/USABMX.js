@@ -1,10 +1,86 @@
 import { DateTime } from 'luxon';
+import { uuid } from 'uuidv4';
 import Track from '../model/Track';
 import Race from '../model/Race';
 
 class USABMX {
   constructor() {
     this.isApp = window.cordova !== undefined;
+
+    this.unlistedTracks = [
+      {
+        'id': uuid(),
+        'name': 'South Point Hotel & Casino',
+        'district': 'NAT',
+        'city': 'Las Vegas',
+        'state': 'NV',
+        'latitude': '36.0115768',
+        'longitude': '-115.1745167'
+      },
+      {
+        'id': uuid(),
+        'name': 'South Point Event Center',
+        'district': 'NAT',
+        'city': 'Las Vegas',
+        'state': 'NV',
+        'latitude': '36.0115768',
+        'longitude': '-115.1745167'
+      },
+      {
+        'id': uuid(),
+        'name': 'Virginia Horse Center',
+        'district': 'NAT',
+        'city': 'Lexington',
+        'state': 'VA',
+        'latitude': '37.8103699',
+        'longitude': '-79.4287132'
+      },
+      {
+        'id': uuid(),
+        'name': 'Ford Truck Arena',
+        'district': 'NAT',
+        'city': 'Tulsa',
+        'state': 'OK',
+        'latitude': '36.1371867',
+        'longitude': '-95.9303944'
+      },
+      {
+        'id': uuid(),
+        'name': 'Bank of Cascades Center',
+        'district': 'NAT',
+        'city': 'Redmond',
+        'state': 'OR',
+        'latitude': '44.2381174',
+        'longitude': '-121.1853418'
+      },
+      {
+        'id': uuid(),
+        'name': 'Ike Hamilton Expo Center',
+        'district': 'NAT',
+        'city': 'West Monroe',
+        'state': 'LA',
+        'latitude': '32.5055535',
+        'longitude': '-92.1832627'
+      },
+      {
+        'id': uuid(),
+        'name': 'Heritage Park',
+        'district': 'NAT',
+        'city': 'Chilliwack',
+        'state': 'BC',
+        'latitude': '49.1415924',
+        'longitude': '-122.005913'
+      },
+      {
+        'id': uuid(),
+        'name': 'River Spirit Expo',
+        'district': 'NAT',
+        'city': 'Tulsa',
+        'state': 'OK',
+        'latitude': '36.1347291',
+        'longitude': '-95.9330429'
+      }
+    ]
   }
 
   markDirty = () => {
@@ -198,7 +274,7 @@ class USABMX {
       return this.trackList;
     } else {
       return this.readFile('tracks.json').then((tracks) => {
-        return tracks.filter((track) => {
+        return tracks.concat(this.unlistedTracks).filter((track) => {
           if (track.latitude === null || track.longitude === null) {
             console.warn('Track with invalid location', JSON.stringify(track));
             return false;
@@ -263,6 +339,7 @@ class USABMX {
     fetch(`/race-day-app/data/tracks.json`, { method : 'GET' })
     .then((response) => response.json())
     .then((tracks) => {
+
       return tracks.filter((track) => {
         if (track.latitude === null || track.longitude === null) {
           console.warn('Track with invalid location', track);
@@ -272,7 +349,7 @@ class USABMX {
         return true;
       })
     })
-    .then((tracks) => tracks.map((track) => new Track(track)))
+    .then((tracks) => tracks.concat(this.unlistedTracks).map((track) => new Track(track)))
 
     return this.trackList;
   }
