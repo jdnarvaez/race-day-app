@@ -42,6 +42,24 @@ class MobileTrackInfo extends React.PureComponent {
     }
   }
 
+  openTrackPhone = () => {
+    const { track } = this.props;
+
+    if (track) {
+      const phone_number = track.primary_contact_phone || track.phone_number;
+
+      if (phone_number) {
+        if (window.cordova) {
+
+        } else {
+          // window.open("tel:+4842566",'_blank');  
+        }
+      }
+    }
+  }
+
+
+
   navigateTo = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -58,7 +76,7 @@ class MobileTrackInfo extends React.PureComponent {
   }
 
   render() {
-    const { openTrackEmail, openTrackUrl, navigateTo } = this;
+    const { openTrackEmail, openTrackUrl, navigateTo, openTrackPhone } = this;
     const { app, track } = this.props;
     const { width } = this.state;
 
@@ -79,7 +97,7 @@ class MobileTrackInfo extends React.PureComponent {
             <div className="trackname"><span style={{ display : 'block' }}>{track.name}</span></div>
             <div className="state">{track.state}</div>
             <div className="operator">{track.primary_contact_name}</div>
-            <div className="phone">{track.primary_contact_phone}</div>
+            <div className="phone" onClick={openTrackPhone}>{track.primary_contact_phone || track.phone_number}</div>
             <div className="email" onClick={openTrackEmail}>{track.email}</div>
             <div className="url" onClick={openTrackUrl}>{track.website_url}</div>
           </div>
