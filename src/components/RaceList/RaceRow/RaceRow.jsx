@@ -124,8 +124,25 @@ class RaceList extends React.PureComponent {
     }
   }
 
+  openEventUrl = () => {
+    const { race } = this.props;
+    const url = `https://www.usabmx.com/site/bmx_races/${race.id}`;
+
+    if (window.cordova) {
+      if (isAndroid) {
+        cordova.InAppBrowser.open(url);
+      } else {
+        cordova.InAppBrowser.open(url, '_blank', { usewkwebview : 'yes' });
+      }
+    } else {
+      window.open(url, '_system');
+    }
+  }
+
+  // <div className="time">{race.starttime.toLocaleString(DateTime.TIME_SIMPLE)}</div>
+
   render() {
-    const { addToCalendar, raceName, navigateTo } = this;
+    const { addToCalendar, raceName, navigateTo, openEventUrl } = this;
     const { app, race } = this.props;
 
     return (
@@ -134,12 +151,11 @@ class RaceList extends React.PureComponent {
         <div className="content">
           <div className="region-container"><div className="region">{this.mapRegion(race.region)}</div></div>
           <div className="details">
-            <div className="racename">{raceName()}</div>
+            <div className="racename" onClick={openEventUrl}>{raceName()}</div>
             <div className="date-time">
               <div className="date">{race.begins_on.toLocaleString(DateTime.DATE_FULL)}</div>
               <div className="secondary">
                 <div className="day">{race.begins_on.toLocaleString({ weekday : 'long' })}</div>
-                <div className="time">{race.starttime.toLocaleString(DateTime.TIME_SIMPLE)}</div>
               </div>
             </div>
             <div className="trackname" onClick={(e) => app.showTrackWithName(race.trackname)}>{race.trackname}</div>

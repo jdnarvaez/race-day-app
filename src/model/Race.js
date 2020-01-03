@@ -1,23 +1,36 @@
 import { DateTime, Duration  } from 'luxon';
+import tzlookup from 'tz-lookup';
 
 class Race {
-  constructor(props) {
+  constructor(props, tracks) {
     Object.assign(this, props);
 
+    const track = tracks.find(t => t.name === props.trackname);
+    const opts = {};
+
+    if (track) {
+      try {
+        const zone = tzlookup(track.latitude, track.longitude);
+        opts.zone = zone;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     if (props.begins_on) {
-      this.begins_on = DateTime.fromISO(props.begins_on);
+      this.begins_on = DateTime.fromISO(props.begins_on, opts);
     }
 
     if (props.ends_on) {
-      this.ends_on = DateTime.fromISO(props.ends_on);
+      this.ends_on = DateTime.fromISO(props.ends_on, opts);
     }
 
     if (props.starttime) {
-      this.starttime = DateTime.fromMillis(props.starttime * 1000).minus(Duration.fromMillis(3600000));
+      this.starttime = DateTime.fromMillis(props.starttime * 1000, opts).minus(Duration.fromMillis(3600000));
     }
 
     if (props.stoptime) {
-      this.stoptime = DateTime.fromMillis(props.stoptime * 1000).minus(Duration.fromMillis(3600000));
+      this.stoptime = DateTime.fromMillis(props.stoptime * 1000, opts).minus(Duration.fromMillis(3600000));
     }
 
     if (this.trackname === 'Tri-City BMX' && this.category === 'Practice') {

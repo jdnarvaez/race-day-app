@@ -161,10 +161,10 @@ class USABMX {
     })
   }
 
-  getRaceListNative = () => {
+  getRaceListNative = (tracks) => {
     const racesLastUpdated = localStorage.getItem('racesLastUpdated');
 
-    if (racesLastUpdated === null || (new Date().getTime() - new Date(parseInt(racesLastUpdated)).getTime()) > 86400000) {
+    if (racesLastUpdated === null || (new Date().getTime() - new Date(parseInt(racesLastUpdated)).getTime()) > (86400000 * 7)) {
       localStorage.setItem('racesLastUpdated', new Date().getTime().toString())
 
       if (this.raceList) {
@@ -182,7 +182,7 @@ class USABMX {
             this.raceList = undefined;
             const today = DateTime.fromJSDate(new Date());
 
-            resolve(races.map((race) => new Race(race)).filter((race) => race.begins_on >= today).sort((a, b) => {
+            resolve(races.map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
               if (a.begins_on < b.begins_on) {
                 return -1
               } else if (a.begins_on > b.begins_on) {
@@ -201,7 +201,7 @@ class USABMX {
       return this.readFile('races.json').then((races) => {
         const today = DateTime.fromJSDate(new Date());
 
-        return races.map((race) => new Race(race)).filter((race) => race.begins_on >= today).sort((a, b) => {
+        return races.map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
           if (a.begins_on < b.begins_on) {
             return -1
           } else if (a.begins_on > b.begins_on) {
@@ -253,7 +253,7 @@ class USABMX {
   getTrackListNative = () => {
     const tracksLastUpdated = localStorage.getItem('tracksLastUpdated');
 
-    if (tracksLastUpdated === null || (new Date().getTime() - new Date(parseInt(tracksLastUpdated)).getTime()) > 86400000) {
+    if (tracksLastUpdated === null || (new Date().getTime() - new Date(parseInt(tracksLastUpdated)).getTime()) > (86400000 * 7)) {
       localStorage.setItem('tracksLastUpdated', new Date().getTime().toString())
 
       if (this.trackList) {
@@ -287,9 +287,9 @@ class USABMX {
     }
   }
 
-  getRaceList = () => {
+  getRaceList = (tracks) => {
     if (this.isApp) {
-      return this.getRaceListNative()
+      return this.getRaceListNative(tracks)
     }
 
     if (this.raceList) {
@@ -301,8 +301,8 @@ class USABMX {
     this.raceList =
     fetch(`/race-day-app/data/races.json`, { method : 'GET' })
     .then((response) => response.json())
-    .then((response) => response.map((race) => new Race(race)))
-    .then((races) => races.filter((race) => race.begins_on >= today))
+    .then((response) => response.map((race) => new Race(race, tracks)))
+    .then((races) => races.filter((race) => race.ends_on >= today))
     .then((races) => {
       return races.sort((a, b) => {
         if (a.begins_on < b.begins_on) {
@@ -318,12 +318,9 @@ class USABMX {
     return this.raceList;
   }
 
-  getRacesByTrack = (track) => {
-    return this.getRaceList().then((races) => races.filter(race => race.trackname === track.name))
-  }
-
   getRacesByTracks = (tracks) => {
-    return this.getRaceList().then((races) => races.filter(race => tracks.indexOf(race.trackname) >= 0))
+    const tracknames = tracks.map(track => track.name);
+    return this.getRaceList(tracks).then((races) => races.filter(race => tracknames.indexOf(race.trackname) >= 0))
   }
 
   getTrackList = () => {

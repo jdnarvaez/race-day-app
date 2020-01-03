@@ -358,13 +358,13 @@ class App extends React.Component {
     const { tracks } = this.state;
     const trackNames = tracks.filter((track) => bounds.contains(track.position)).map((track) => track.name);
 
-    USABMX.getRacesByTracks(trackNames).then((raceList) => {
+    USABMX.getRacesByTracks(tracks).then((raceList) => {
       this.setState({ raceList : this.filterResults(raceList), loaded : true });
     })
   }
 
   searchByTrack = (track) => {
-    USABMX.getRacesByTrack(track).then((raceList) => {
+    USABMX.getRacesByTracks([track]).then((raceList) => {
       this.setState({ raceList : this.filterResults(raceList) });
     })
   }

@@ -38,7 +38,15 @@ class MobileTrackInfo extends React.PureComponent {
     const { track } = this.props;
 
     if (track && track.website_url) {
-      window.open(track.website_url, '_new');
+      if (window.cordova) {
+        if (isAndroid) {
+          cordova.InAppBrowser.open(track.website_url);
+        } else {
+          cordova.InAppBrowser.open(track.website_url, '_blank', { usewkwebview : 'yes' });
+        }
+      } else {
+        window.open(track.website_url, '_new');
+      }
     }
   }
 
@@ -52,13 +60,11 @@ class MobileTrackInfo extends React.PureComponent {
         if (window.cordova) {
 
         } else {
-          // window.open("tel:+4842566",'_blank');  
+          // window.open("tel:+4842566",'_blank');
         }
       }
     }
   }
-
-
 
   navigateTo = (e) => {
     e.preventDefault();
@@ -94,7 +100,7 @@ class MobileTrackInfo extends React.PureComponent {
         {track && <div className="detail-layout">
           <div className="district-container"><div className="district">{track.district}</div></div>
           <div className="details">
-            <div className="trackname"><span style={{ display : 'block' }}>{track.name}</span></div>
+            <div className="trackname" onClick={openTrackUrl}><span style={{ display : 'block' }}>{track.name}</span></div>
             <div className="state">{track.state}</div>
             <div className="operator">{track.primary_contact_name}</div>
             <div className="phone" onClick={openTrackPhone}>{track.primary_contact_phone || track.phone_number}</div>
