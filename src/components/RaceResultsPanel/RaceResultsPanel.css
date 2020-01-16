@@ -1,0 +1,40 @@
+.race-results-panel {
+  display: flex;
+  flex-direction: column;
+  color: rgba(132, 137, 154, 1);
+  text-transform: uppercase;
+}
+
+.race-results-panel > .start-here {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  font-weight: 100;
+  padding-bottom: 10px;
+}
+
+.race-results-panel > .start-here > .caption {
+  text-align: center;
+}
+
+.race-results-panel > .start-here > .pointer {
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.race-results-panel > .start-here > .pointer > svg {
+  transform: rotate(90deg);
+}
+
+.race-results-panel > .race-results-count {
+  font-weight: 100;
+  text-align: center;
+  font-size: 12px;
+  padding-bottom: 10px;
+  padding-top: 35px;
+}
+
+.race-results-panel > .race-results {
+
+}

@@ -6,6 +6,8 @@ import { BrowserView, MobileOnlyView, MobileView, isMobile } from 'react-device-
 import { uuid } from 'uuidv4';
 
 import USABMX from '../../services/USABMX';
+import Storage from '../../services/Storage';
+import Venue from '../../model/Venue';
 import LoadingIndicator from '../LoadingIndicator';
 import Navigation from '../Navigation';
 import MobileNavigation from '../MobileNavigation';
@@ -18,11 +20,7 @@ import NearbyTrackList from '../NearbyTrackList';
 
 import MainPanel from '../MainPanel';
 import LogBookPanel from '../LogBookPanel';
-
-import TrackCount from '../Widgets/TrackCount';
-import EventCount from '../Widgets/EventCount';
-import NationalCount from '../Widgets/NationalCount';
-import DistrictCount from '../Widgets/DistrictCount';
+import RaceResultsPanel from '../RaceResultsPanel';
 
 import './App.css';
 
@@ -49,8 +47,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      width : isMobile ? innerWidth : (innerWidth - 77),
-      height : isMobile ? (innerHeight - 77) : innerHeight,
+      width : isMobile ? innerWidth : (innerWidth - 75),
+      height : isMobile ? (innerHeight - 75) : innerHeight,
       tracks : [],
       activeTrack : undefined,
       raceList : undefined,
@@ -60,7 +58,8 @@ class App extends React.Component {
       center : new LatLng(37.09024, -95.712891),
       nearbyTracks : [],
       runningInBackgound: false,
-      activePanelIndex: 0
+      activePanelIndex: 0,
+      storage: new Storage()
     };
 
     const categoryFilterOptions = ['National', 'Gold Cup', 'State', 'Multi', 'Practice'];
@@ -102,13 +101,15 @@ class App extends React.Component {
   }
 
   refreshData = () => {
-    const { searchMode } = this.state;
+    const { searchMode, storage } = this.state;
 
     this.setState({ loaded : false, searchMode : 'loading' }, () => {
       USABMX.markDirty();
 
-      USABMX.getTrackList().then((tracks) => {
-        this.setState({ loaded : true, tracks : tracks, searchMode : searchMode });
+      //TODO: go back to USABMX and find new data for db
+
+      Venue.all(storage).then(venues => {
+        this.setState({ loaded : true, tracks : venues, searchMode : searchMode });
       })
       .catch((err) => {
         console.error(err);
@@ -266,7 +267,15 @@ class App extends React.Component {
   }
 
   setSearchMode = (mode) => {
-    this.setState({ searchMode : mode, activePanelIndex : 0 })
+    const { searchMode } = this.state;
+
+    if (mode === searchMode) {
+      this.setState({ searchMode : '', activePanelIndex : 0 }, () => {
+        this.setState({ searchMode : mode });
+      })
+    } else {
+      this.setState({ searchMode : mode, activePanelIndex : 0 })
+    }
   }
 
   setActiveTrack = (track) => {
@@ -297,9 +306,11 @@ class App extends React.Component {
   }
 
   mapReady = (map) => {
+    const { storage } = this.state;
+
     this.setState({ map : map.contextValue.map, currentZoom : map.contextValue.map.getZoom(), minZoom : map.contextValue.map.getMinZoom(), maxZoom : map.contextValue.map.getMaxZoom() }, () => {
-      USABMX.getTrackList().then((tracks) => {
-        this.setState({ tracks : tracks, bounds : new LatLngBounds(tracks.map(track => track.position)) }, () => {
+      Venue.all(storage).then(venues => {
+        this.setState({ tracks : venues, bounds : new LatLngBounds(venues.map(track => track.position)) }, () => {
           const { searchMode, map, bounds } = this.state;
           map.invalidateSize();
           map.fitBounds(bounds);
@@ -325,6 +336,28 @@ class App extends React.Component {
       } else {
         this.searchByLocation(map.contextValue.map.getBounds());
       }
+    }
+  }
+
+  moveMapToCurrentLocation = () => {
+    if (window.cordova) {
+      BackgroundGeolocation.getCurrentLocation((position) => {
+        const { map, searchMode } = this.state;
+        map.setView(new LatLng(position.latitude, position.longitude), isMobile ? 8 : 10, { animate : true });
+
+        if (searchMode !== 'location') {
+          this.searchByLocation(map.getBounds());
+        }
+      }, err => console.error(err));
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { map, searchMode } = this.state;
+        map.setView(new LatLng(position.coords.latitude, position.coords.longitude), isMobile ? 8 : 10, { animate : true });
+
+        if (searchMode !== 'location') {
+          this.searchByLocation(map.getBounds());
+        }
+      })
     }
   }
 
@@ -356,9 +389,8 @@ class App extends React.Component {
 
   searchByLocation = (bounds) => {
     const { tracks } = this.state;
-    const trackNames = tracks.filter((track) => bounds.contains(track.position)).map((track) => track.name);
 
-    USABMX.getRacesByTracks(tracks).then((raceList) => {
+    USABMX.getRacesByTracks(tracks.filter((track) => bounds.contains(track.position))).then((raceList) => {
       this.setState({ raceList : this.filterResults(raceList), loaded : true });
     })
   }
@@ -499,6 +531,7 @@ class App extends React.Component {
                 categoryFilters={this.state.categoryFilters}
                 regionFilterOptions={this.state.regionFilterOptions}
                 regionFilters={this.state.regionFilters}
+                moveMapToCurrentLocation={this.moveMapToCurrentLocation}
                 key="race-list" />
               <NearbyTrackList
                 app={this}
@@ -508,7 +541,8 @@ class App extends React.Component {
               />
               <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
             </React.Fragment>
-            <LogBookPanel app={this} tracks={this.state.tracks} raceList={this.state.raceList} key="logbook" />
+            <LogBookPanel app={this} tracks={this.state.tracks} raceList={this.state.raceList} storage={this.state.storage} key="logbook" />
+            <RaceResultsPanel app={this} storage={this.state.storage} key="race-results" />
           </MainPanel>
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
           <MobileNavigation app={this} width={this.state.width} searchMode={this.state.searchMode} activePanelIndex={this.state.activePanelIndex} />

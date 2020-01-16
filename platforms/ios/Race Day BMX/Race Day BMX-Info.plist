@@ -51,6 +51,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calendar access allows you to quick add race events to your device's calendar</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is required to take photos</string>
 	<key>NSContactsUsageDescription</key>
 	<string></string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -65,6 +67,10 @@
 	<string></string>
 	<key>NSMotionUsageDescription</key>
 	<string>Device motion updates help determine when the device is stationary so that the app can save power by turning off location updates</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo library access is required to save photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo library access is required to add existing photos</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

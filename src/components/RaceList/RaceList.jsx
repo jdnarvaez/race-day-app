@@ -2,7 +2,7 @@ import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 import { isMobile } from 'react-device-detect';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowMaximize, faWindowMinimize, faTimes, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faWindowMaximize, faWindowMinimize, faTimes, faSync, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 
 import EventFilter from './EventFilter';
 import RaceRow from './RaceRow';
@@ -50,12 +50,12 @@ class RaceList extends React.PureComponent {
   renderRow = ({ index, key, style }) => {
     const { app, raceList, tracks } = this.props;
     const race = raceList[index];
-    return (<div className="race-row-container" style={style}><RaceRow app={app} race={race} tracks={tracks} key={race.id.toString()} /></div>);
+    return (<div className="race-row-container" style={style} key={race.id}><RaceRow app={app} race={race} tracks={tracks} /></div>);
   }
 
   render() {
     const { renderRow } = this;
-    const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters, activeTrack } = this.props;
+    const { app, raceList, categoryFilterOptions, categoryFilters, regionFilterOptions, regionFilters, activeTrack, moveMapToCurrentLocation } = this.props;
     const { maxHeight, minimized, isApp, width } = this.state;
     const hasRaces = raceList && raceList.length > 0;
     const style = {};
@@ -100,6 +100,9 @@ class RaceList extends React.PureComponent {
             {raceList && raceList.length > 0 && <div className="count">{raceList.length}</div>}
             {raceList && raceList.length === 1 && <div className="caption">event</div>}
             {raceList && raceList.length > 1 && <div className="caption">events</div>}
+          </div>
+          <div className="current-location" onClick={moveMapToCurrentLocation}>
+            <FontAwesomeIcon icon={faLocationArrow} />
           </div>
           {isMobile && minimized && <div className="maximize" onClick={(e) => this.setState({ minimized : false })}>
             <FontAwesomeIcon icon={faWindowMaximize} />

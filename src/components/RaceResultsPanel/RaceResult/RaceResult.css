@@ -1,0 +1,19 @@
+.race-result-container {
+  display: flex;
+  justify-content: center;
+}
+
+.race-result {
+  border-radius: 10px;
+  border: 2px solid rgba(var(--border-color), 1);
+  box-sizing: border-box;
+  display: flex;
+}
+
+.race-result > .day {
+  display: flex;
+}
+
+.race-result > .day > .caption {
+
+}

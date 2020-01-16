@@ -40,9 +40,8 @@ class NearbyTrackList extends React.PureComponent {
 
   renderRow = ({ index, key, style }) => {
     const { app, nearbyTracks, currentLocation } = this.props;
-
     const track = nearbyTracks[index];
-    return (<div className="track-row-container" style={style} onClick={(e) => app.setActiveTrack(track)}><TrackRow app={app} track={track} currentLocation={currentLocation} key={track.id.toString()} /></div>);
+    return (<div className="track-row-container" key={track.id} style={style} onClick={(e) => app.setActiveTrack(track)}><TrackRow app={app} track={track} currentLocation={currentLocation} key={track.id.toString()} /></div>);
   }
 
   render() {

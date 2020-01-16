@@ -145,5 +145,53 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@^4.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-sqlite-storage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-sqlite-storage@^4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-actionsheet": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-actionsheet@^2.3.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-compat": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-compat@^1.0.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-gmv-barcode-scanner": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-gmv-barcode-scanner"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-plugin-barcodescanner@^8.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

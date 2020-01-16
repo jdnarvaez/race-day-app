@@ -1,0 +1,19 @@
+.moto-details {
+  transition: all 100ms ease;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.moto-details.hide {
+  height: 0px;
+  max-height: 0px;
+  min-height: 0px;
+  overflow: hidden;
+}
+
+.motos.selected-moto > .rounds > .round > .title {
+  color: rgba(var(--active-color), 1);
+}

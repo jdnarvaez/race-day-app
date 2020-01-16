@@ -42,18 +42,27 @@
         <config-file parent="NSCalendarsUsageDescription" target="*-Info.plist">
             <string>Calendar access allows you to quick add race events to your device's calendar</string>
         </config-file>
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>Camera access is required to take photos</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>Photo library access is required to add existing photos</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+            <string>Photo library access is required to save photos</string>
+        </edit-config>
     </platform>
     <platform name="android">
-      <plugin name="@mauron85/cordova-plugin-background-geolocation" spec="3.1.0">
-         <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
-         <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="26+" />
-         <variable name="ICON" value="@mipmap/ic_launcher" />
-         <variable name="SMALL_ICON" value="@mipmap/ic_launcher" />
-         <variable name="ACCOUNT_NAME" value="@string/app_name" />
-         <variable name="ACCOUNT_LABEL" value="@string/app_name" />
-         <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account" />
-         <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
-     </plugin>
+        <plugin name="@mauron85/cordova-plugin-background-geolocation" spec="3.1.0">
+            <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
+            <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="26+" />
+            <variable name="ICON" value="@mipmap/ic_launcher" />
+            <variable name="SMALL_ICON" value="@mipmap/ic_launcher" />
+            <variable name="ACCOUNT_NAME" value="@string/app_name" />
+            <variable name="ACCOUNT_LABEL" value="@string/app_name" />
+            <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account" />
+            <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
+        </plugin>
     </platform>
     <mfp:android>
         <mfp:sdkChecksum>0</mfp:sdkChecksum>

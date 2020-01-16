@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald:100,300,400,500,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,700&display=swap');
+
+:root {
+  --border-color: 62, 67, 84;
+  --border-radius: 10px;
+  --active-color: 101, 219, 146;
+  --danger-color: 224, 76, 76;
+  --background-color: 38, 41, 54;
+  --foreground-color: 132, 137, 154;
+  --font-family: 'Oswald';
+}
 
 html, body, #root, .app {
   height: 100%;
@@ -6,7 +16,7 @@ html, body, #root, .app {
 }
 
 body {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-family), sans-serif;
 }
 
 /* Ripple effect */

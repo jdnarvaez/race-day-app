@@ -1,0 +1,32 @@
+.points-class-selector {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.points-class-selector > .points-classes {
+  border: 2px solid rgba(var(--border-color), 1);
+  border-radius: var(--border-radius);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.points-class-selector > .points-classes > .points-class {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+  padding: 10px;
+  min-height: 30px;
+}
+
+.points-class-selector > .points-classes > .points-class.selected {
+  background: rgba(10, 10, 10, .2);
+  color: rgba(var(--active-color), 1);
+}
+
+.points-class-selector > .points-classes > .points-class > .name {
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: -1px;
+}

@@ -45,7 +45,7 @@
 }
 
 .mobile-navigation > .btn.active {
-  color : rgb(101, 219, 146);
+  color : rgba(var(--active-color), 1);
 }
 
 .mobile-navigation > .btn.track-mode > .map-marker {

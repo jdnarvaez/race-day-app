@@ -1,0 +1,39 @@
+.event-selector {
+  padding: 25px;
+}
+
+.event-selector > .events {
+  border: 2px solid rgba(var(--border-color), 1);
+  border-radius: var(--border-radius);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-selector > .events > .event {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+  padding: 10px;
+}
+
+.event-selector > .events > .event.selected {
+  background: rgba(10, 10, 10, .2);
+  color: rgba(var(--active-color), 1);
+}
+
+.event-selector > .events > .event > .name {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.event-selector > .events > .event > .date {
+  font-size: 15px;
+  font-weight: 100;
+  letter-spacing: -.5px;
+}
+
+.event-selector > .events > .event.no-events-found  > .name{
+  font-weight: 100;
+}

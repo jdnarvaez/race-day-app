@@ -1,0 +1,43 @@
+.workflow {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
+  background: rgba(var(--background-color), .95);
+  transition: all 250ms linear;
+  display: flex;
+  flex-direction: column;
+  color: rgba(132, 137, 154, 1);
+  text-transform: uppercase;
+}
+
+.workflow.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.workflow > .header {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 35px;
+  font-size: 20px;
+  align-items: center;
+  align-content: center;
+}
+
+.workflow > .header > .btn {
+  min-width: 35px;
+}
+
+.workflow > .header > .btn.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.workflow > .header > .title {
+  flex-grow: 1;
+  justify-content: center;
+  text-align: center;
+}

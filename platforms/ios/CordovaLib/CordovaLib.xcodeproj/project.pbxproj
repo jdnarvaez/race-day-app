@@ -5,6 +5,7 @@
 	};
 	objectVersion = 48;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		28BFF9141F355A4E00DDF01A /* CDVLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 28BFF9121F355A4E00DDF01A /* CDVLogger.h */; };
 		28BFF9151F355A4E00DDF01A /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFF9131F355A4E00DDF01A /* CDVLogger.m */; };

@@ -1,0 +1,17 @@
+.carousel-photo-view {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.carousel-photo-view > img {
+  object-fit: contain;
+  width: 100%;
+  animation: imagefadein 500ms;
+}
+
+@keyframes imagefadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

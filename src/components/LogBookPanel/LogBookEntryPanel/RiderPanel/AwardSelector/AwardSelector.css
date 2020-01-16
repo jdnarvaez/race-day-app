@@ -1,0 +1,32 @@
+.award-selector {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  border-top: 1px solid rgba(var(--border-color), 1);
+  transition: height .25s linear;
+  overflow: hidden;
+}
+
+.award-selector.hide {
+  min-height: 0px;
+  max-height: 0px;
+  height: 0px;
+  border-top: 0px;
+}
+
+.award-selector.show {
+
+}
+
+.award-selector > .multi-switch-container {
+  border-radius: 10px;
+}
+
+.award-selector > .multi-switch-content {
+
+}
+
+.multi-switch-handle {
+  border-radius: 10px;
+}

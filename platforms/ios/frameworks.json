@@ -1,12 +1,13 @@
 {
-    "CoreLocation.framework": 3,
+    "CoreLocation.framework": 4,
     "SystemConfiguration.framework": 2,
-    "AudioToolbox.framework": 1,
-    "AVFoundation.framework": 1,
+    "AudioToolbox.framework": 2,
+    "AVFoundation.framework": 3,
     "libsqlite3.dylib": 1,
+    "EventKit.framework": 1,
+    "EventKitUI.framework": 1,
+    "ImageIO.framework": 1,
     "Security.framework": 1,
     "WebKit.framework": 1,
-    "UserNotifications.framework": 1,
-    "EventKit.framework": 1,
-    "EventKitUI.framework": 1
+    "UserNotifications.framework": 1
 }
