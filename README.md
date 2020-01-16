@@ -9,7 +9,7 @@ Supports both mobile and desktop browsers. OSX Safari may experience map issues.
 
 ![demo](https://raw.githubusercontent.com/jdnarvaez/race-day-app/master/docs/images/demo.gif)
 
-# Log Book Explanation
+# Log Book 
 
 This tab allows you log your practice sessions or races, in as little or much detail as you would like. 
 
@@ -29,7 +29,7 @@ You can write general notes about the rider for that class and attach photos, bu
 If you want to change the details of any part you walked through previously (location, date, type of race, point multiplier), tap on that detail in the header and the walkthrough will open back up or it will show a date selector accordingly. 
 If there are other features anyone would find useful or if you have additional questions, feel free to ask. Thanks!
 
-# Using
+# Event Search
 
 **Note**: This uses the open source OSM Tile Server, and as a result, map loading might be slow. 
 
