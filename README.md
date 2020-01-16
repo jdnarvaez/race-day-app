@@ -1,3 +1,4 @@
+Available on the [Apple App Store](https://apps.apple.com/us/app/race-day-bmx/id1492349004) [Google Play](https://play.google.com/store/apps/details?id=com.elevate.raceday) 
 # race-day-app
 [Location Based USA BMX Race Planner](http://jdnarvaez.github.io/race-day-app/)
 
