@@ -72,7 +72,7 @@ plugins.push(new PostCSSAssetsPlugin({
 
 plugins.push(new OptimizeCSSAssetsPlugin({
   cssProcessorPluginOptions: {
-    preset: ['default', { discardComments: { removeAll: true } }],
+    preset: ['default', { discardComments: { removeAll : true } }],
   }
 }));
 
@@ -172,7 +172,7 @@ const config = {
 
 const iOSConfig = Object.assign({}, config,{
   output: {
-    publicPath: 'app',
+    publicPath: 'app/',
 		path: path.join(__dirname, "platforms", "ios", "www", "app"),
 		filename: '[name].js'
 	}
@@ -180,7 +180,7 @@ const iOSConfig = Object.assign({}, config,{
 
 const androidConfig = Object.assign({}, config,{
   output: {
-    publicPath: 'app',
+    publicPath: 'app/',
 		path: path.join(__dirname, 'platforms', 'android', 'app', 'src', 'main', 'assets', 'www', 'app'),
 		filename: '[name].js'
 	}

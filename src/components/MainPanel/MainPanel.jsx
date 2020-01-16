@@ -20,6 +20,7 @@ class MainPanel extends React.PureComponent {
           const props = {...child.props};
           props.width = width;
           props.height = height;
+          props.activePanel = this.props.activePanelIndex === idx;
 
           return (
             <Panel index={idx} key={idx.toString()} activePanelIndex={this.props.activePanelIndex} width={this.props.width} height={this.props.height} style={style}>

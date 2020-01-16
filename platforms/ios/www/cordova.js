@@ -120,7 +120,7 @@ var documentEventHandlers = {};
 var windowEventHandlers = {};
 
 document.addEventListener = function (evt, handler, capture) {
-    var e = evt.toLowerCase();
+    var e = evt && evt.toLowerCase();
     if (typeof documentEventHandlers[e] !== 'undefined') {
         documentEventHandlers[e].subscribe(handler);
     } else {
@@ -129,7 +129,7 @@ document.addEventListener = function (evt, handler, capture) {
 };
 
 window.addEventListener = function (evt, handler, capture) {
-    var e = evt.toLowerCase();
+    var e = evt && evt.toLowerCase();
     if (typeof windowEventHandlers[e] !== 'undefined') {
         windowEventHandlers[e].subscribe(handler);
     } else {
@@ -138,7 +138,7 @@ window.addEventListener = function (evt, handler, capture) {
 };
 
 document.removeEventListener = function (evt, handler, capture) {
-    var e = evt.toLowerCase();
+    var e = evt && evt.toLowerCase();
     // If unsubscribing from an event that is handled by a plugin
     if (typeof documentEventHandlers[e] !== 'undefined') {
         documentEventHandlers[e].unsubscribe(handler);
@@ -148,7 +148,7 @@ document.removeEventListener = function (evt, handler, capture) {
 };
 
 window.removeEventListener = function (evt, handler, capture) {
-    var e = evt.toLowerCase();
+    var e = evt && evt.toLowerCase();
     // If unsubscribing from an event that is handled by a plugin
     if (typeof windowEventHandlers[e] !== 'undefined') {
         windowEventHandlers[e].unsubscribe(handler);

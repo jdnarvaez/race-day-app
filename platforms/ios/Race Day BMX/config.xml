@@ -19,6 +19,9 @@
         <param name="ios-package" value="CDVGestureHandler" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="ActionSheet">
+        <param name="ios-package" value="ActionSheet" />
+    </feature>
     <feature name="BackgroundGeolocation">
         <param name="ios-package" value="CDVBackgroundGeolocation" />
         <param name="onload" value="true" />
@@ -26,8 +29,17 @@
     <feature name="Badge">
         <param name="ios-package" value="APPBadge" />
     </feature>
+    <feature name="Calendar">
+        <param name="ios-package" value="Calendar" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="Directions">
+        <param name="ios-package" value="Directions" />
     </feature>
     <feature name="FetchPlugin">
         <param name="ios-package" value="FetchPlugin" />
@@ -38,6 +50,14 @@
     </feature>
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="WKInAppBrowser">
+        <param name="ios-package" value="CDVWKInAppBrowser" />
+        <param name="onload" value="true" />
     </feature>
     <allow-navigation href="ionic://*" />
     <feature name="IonicWebView">
@@ -54,8 +74,8 @@
         <param name="ios-package" value="CDVStatusBar" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="Calendar">
-        <param name="ios-package" value="Calendar" />
+    <feature name="SQLitePlugin">
+        <param name="ios-package" value="SQLitePlugin" />
     </feature>
     <name>Race Day BMX</name>
     <description>
@@ -132,6 +152,15 @@
     <config-file parent="NSCalendarsUsageDescription" target="*-Info.plist">
         <string>Calendar access allows you to quick add race events to your device's calendar</string>
     </config-file>
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>Camera access is required to take photos</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+        <string>Photo library access is required to add existing photos</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+        <string>Photo library access is required to save photos</string>
+    </edit-config>
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -145,6 +174,7 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="CameraUsesGeolocation" value="false" />
     <preference name="deployment-target" value="11.0" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="StatusBarOverlaysWebView" value="true" />
@@ -153,15 +183,7 @@
     <preference name="KeyboardAppearanceDark" value="true" />
     <preference name="SplashScreenSpinnerColor" value="white" />
     <preference name="TopActivityIndicator" value="white" />
-    <feature name="Directions">
-        <param name="ios-package" value="Directions" />
-    </feature>
-    <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="WKInAppBrowser">
-        <param name="ios-package" value="CDVWKInAppBrowser" />
-        <param name="onload" value="true" />
+    <feature name="BarcodeScanner">
+        <param name="ios-package" value="CDVBarcodeScanner" />
     </feature>
 </widget>

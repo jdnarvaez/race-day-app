@@ -1,0 +1,54 @@
+.photo-container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 75px;
+  border: 2px solid rgba(var(--border-color), 1);
+  color: rgba(var(--foreground-color), 1);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.photo > img {
+  width: 100%;
+  object-fit: cover;
+  border: 0px;
+  animation: photofadein 250ms;
+}
+
+@keyframes photofadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.photo.new-photo {
+  width: 100px;
+  height: 75px;
+}
+
+.photo-container.deleted {
+  animation-duration: 250ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-name: deletePhoto;
+}
+
+@keyframes deletePhoto {
+  0% {opacity: 1; transform: scale(1);}
+  40% {opacity: 0.75; transform: scale(.75);}
+  60% {opacity: 0.5; transform: scale(.5);}
+  100% {opacity: 0; transform: scale(0);}
+}
+
+.photo-container > .rc-swipeout > .rc-swipeout-content {
+  padding: 0px;
+}

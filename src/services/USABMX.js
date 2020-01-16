@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import { uuid } from 'uuidv4';
-import Track from '../model/Track';
+// import Track from '../model/Track';
 import Race from '../model/Race';
 
 class USABMX {
@@ -86,8 +86,8 @@ class USABMX {
   markDirty = () => {
     this.raceList = undefined;
     this.trackList = undefined;
-    localStorage.removeItem('racesLastUpdated');
-    localStorage.removeItem('tracksLastUpdated');
+    localStorage.removeItem('racesRetrieved');
+    localStorage.removeItem('tracksRetrieved');
   }
 
   deleteFile = (file) => {
@@ -149,24 +149,24 @@ class USABMX {
             resolve(JSON.parse(this.result))
           }
 
+          reader.onerror = function(e) {
+            reject(JSON.stringify(e));
+          }
+
           reader.readAsText(file)
         }, (error) => {
-          console.error(error);
-          reject(error);
+          reject(JSON.stringify(error));
         })
       }, (error) => {
-        console.error(error);
-        reject(error);
+        reject(JSON.stringify(error));
       })
     })
   }
 
-  getRaceListNative = (tracks) => {
-    const racesLastUpdated = localStorage.getItem('racesLastUpdated');
+  getRaceListNative = (tracks, failed) => {
+    const racesLastUpdated = localStorage.getItem('racesRetrieved');
 
     if (racesLastUpdated === null || (new Date().getTime() - new Date(parseInt(racesLastUpdated)).getTime()) > (86400000 * 7)) {
-      localStorage.setItem('racesLastUpdated', new Date().getTime().toString())
-
       if (this.raceList) {
         return this.raceList;
       }
@@ -176,13 +176,35 @@ class USABMX {
         .then((response) => response.json())
         .then((races) => {
           return this.deleteFile('races.json').then(() => {
-            return this.writeFile('races.json', races)
+            return this.writeFile('races.json', races).then(() => {
+              localStorage.setItem('racesRetrieved', new Date().getTime().toString());
+              return races;
+            })
           })
-          .then(() => {
-            this.raceList = undefined;
-            const today = DateTime.fromJSDate(new Date());
+        })
+        .then((races) => {
+          this.raceList = undefined;
+          const today = DateTime.fromJSDate(new Date()).minus(Duration.fromObject({ 'days' : 4 }));
 
-            resolve(races.map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
+          resolve(races.map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
+            if (a.begins_on < b.begins_on) {
+              return -1
+            } else if (a.begins_on > b.begins_on) {
+              return 1;
+            }
+
+            return 0;
+          }))
+        })
+        .catch((error) => {
+          // Fall back to cached race list
+          console.error(error);
+          console.warn('Using cached data from app bundle');
+
+          import(/* webpackChunkName: "events" */ './events.json').then(eventsModule => {
+            const today = DateTime.fromJSDate(new Date()).minus(Duration.fromObject({ 'days' : 4 }));
+
+            resolve(Object.values(eventsModule).filter(t => !Array.isArray(t)).map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
               if (a.begins_on < b.begins_on) {
                 return -1
               } else if (a.begins_on > b.begins_on) {
@@ -191,15 +213,16 @@ class USABMX {
 
               return 0;
             }))
+          }).catch(error => {
+            reject(error);
           })
-          .catch((err) => console.error(err))
         })
       })
 
       return this.raceList;
     } else {
       return this.readFile('races.json').then((races) => {
-        const today = DateTime.fromJSDate(new Date());
+        const today = DateTime.fromJSDate(new Date()).minus(Duration.fromObject({ 'days' : 4 }));
 
         return races.map((race) => new Race(race, tracks)).filter((race) => race.ends_on >= today).sort((a, b) => {
           if (a.begins_on < b.begins_on) {
@@ -210,6 +233,10 @@ class USABMX {
 
           return 0;
         })
+      }).catch((error) => {
+        localStorage.removeItem('racesRetrieved');
+        console.error(error);
+        return this.getRaceListNative(tracks);
       })
     }
   }
@@ -243,7 +270,10 @@ class USABMX {
       this.deleteFile('tracks.json').then(() => {
         return this.writeFile('tracks.json', results)
       })
-      .then(() => resolve(results))
+      .then(() => {
+        localStorage.setItem('tracksRetrieved', new Date().getTime().toString())
+        resolve(results);
+      })
       .catch((err) => { console.error(err); reject(err) })
 
       this.trackList = undefined;
@@ -251,11 +281,9 @@ class USABMX {
   }
 
   getTrackListNative = () => {
-    const tracksLastUpdated = localStorage.getItem('tracksLastUpdated');
+    const tracksLastUpdated = localStorage.getItem('tracksRetrieved');
 
     if (tracksLastUpdated === null || (new Date().getTime() - new Date(parseInt(tracksLastUpdated)).getTime()) > (86400000 * 7)) {
-      localStorage.setItem('tracksLastUpdated', new Date().getTime().toString())
-
       if (this.trackList) {
         return this.trackList;
       }
@@ -283,6 +311,10 @@ class USABMX {
           return true;
         })
         .map((track) => new Track(track))
+      }).catch((error) => {
+        console.error(error);
+        localStorage.removeItem('tracksRetrieved');
+        return this.getTrackListNative();
       })
     }
   }
@@ -296,7 +328,7 @@ class USABMX {
       return this.raceList;
     }
 
-    const today = DateTime.fromJSDate(new Date());
+    const today = DateTime.fromJSDate(new Date()).minus(Duration.fromObject({ 'days' : 4 }));
 
     this.raceList =
     fetch(`/race-day-app/data/races.json`, { method : 'GET' })
@@ -336,7 +368,6 @@ class USABMX {
     fetch(`/race-day-app/data/tracks.json`, { method : 'GET' })
     .then((response) => response.json())
     .then((tracks) => {
-
       return tracks.filter((track) => {
         if (track.latitude === null || track.longitude === null) {
           console.warn('Track with invalid location', track);
@@ -349,6 +380,16 @@ class USABMX {
     .then((tracks) => tracks.concat(this.unlistedTracks).map((track) => new Track(track)))
 
     return this.trackList;
+  }
+
+  getRiderInfoBySerial = (serial) => {
+    const url = `https://www.usabmx.com/mobile/ios/addracermemberlookup.php?serialnumber=${serial}`;
+    return cordovaFetch(url).then(response => response.json());
+  }
+
+  getRacerDetailsByMemberId = (memberId) => {
+    const url = `https://www.usabmx.com/mobile/ios/racer_detail_json.php?memberid=${memberId}`;
+    return cordovaFetch(url).then(response => response.json());
   }
 }
 

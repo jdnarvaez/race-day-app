@@ -39,6 +39,24 @@ class Race {
       this.stoptime = this.starttime.minus(Duration.fromMillis(1800000));
     }
   }
+
+  eventName = () => {
+    var raceName = this.name;
+
+    if (!raceName || raceName === '') {
+      if (this.category === 'Practice') {
+        raceName = this.category
+      } else {
+        if (this.series && this.series !== '') {
+          raceName = `${this.region} ${this.series}`;
+        } else {
+          raceName = `${this.region} ${this.category}`;
+        }
+      }
+    }
+
+    return raceName
+  }
 }
 
 export default Race;

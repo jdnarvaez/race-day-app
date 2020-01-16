@@ -102,6 +102,7 @@ apply from: "../cordova-plugin-background-geolocation/raceday-dependencies.gradl
 apply from: "../cordova-plugin-badge/raceday-badge.gradle"
 apply from: "../cordova-plugin-fetch/raceday-dependencies.gradle"
 apply from: "../cordova-plugin-local-notification/raceday-localnotification.gradle"
+apply from: "../phonegap-plugin-barcodescanner/raceday-barcodescanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -302,6 +303,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:26+"
     implementation "com.android.support:support-annotations:27.+"
     implementation "com.android.support:support-v4:26.+"
+    implementation "com.android.support:support-v4:27.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

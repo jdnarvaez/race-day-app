@@ -1,0 +1,14 @@
+.photos-panel {
+  padding: 10px;
+  padding-top: 0px;
+}
+
+.new-photo {
+  border: 2px solid rgba(var(--border-color), 1);
+  border-style: dashed;
+}
+
+.react-images__header {
+  color: rgba(var(--foreground-color), 1);
+  top: 35px !important;
+}

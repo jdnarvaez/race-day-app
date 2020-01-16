@@ -14,168 +14,79 @@
   font-size: 20px;
 }
 
-.logbook > .header > .barcode {
+.logbook > .header > .spacer {
+  min-width: 17.5px;
+  min-height: 30px;
+}
 
+.logbook > .header > .logbook-entry-count {
+  display: flex;
+  font-weight: 100;
+  font-size: 12px;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 .logbook > .header > .plus {
-  margin-left: auto;
+
 }
 
 .logbook > .entries {
   flex-grow: 1;
-  padding-top: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
 }
 
-.logbook > .entries > .entry {
-  border-radius: 10px;
-  border: 2px solid rgba(62, 67, 84, 1);
+.logbook-entry-container {
+  display: flex;
+}
+
+.logbook > .start-here {
   display: flex;
   flex-direction: column;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.logbook > .entries > .entry > .header {
-  line-height: 1;
-}
-
-.logbook > .entries > .entry > .header > .title {
-  font-weight: 900;
-  letter-spacing: -1px;
-  font-size: 35px;
-  padding: 10px;
-  padding-bottom: 0px;
-}
-
-.logbook > .entries > .entry > .header > .track {
+.logbook > .start-here > .caption {
   font-weight: 100;
-  letter-spacing: -1px;
-  padding-left: 10px;
-  font-size: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.logbook > .entries > .entry > .header > .date {
-  font-weight: 100;
-  letter-spacing: -1px;
-  padding-left: 10px;
-  font-size: 20px;
-  padding-bottom: 5px;
-}
-
-.logbook > .entries > .entry > .header > .day {
-  font-weight: 100;
-  letter-spacing: -1px;
-  padding-left: 10px;
-  font-size: 20px;
-  padding-bottom: 10px;
-}
-
-.logbook > .entries > .entry > .header > .category {
-  padding-left: 10px;
-  font-weight: 100;
-  font-size: 20px;
-}
-
-.logbook > .entries > .entry > .header > .points {
-  padding-left: 10px;
-  font-weight: 100;
-  font-size: 15px;
-  padding-bottom: 10px;
-}
-
-.logbook > .entries > .entry > .riders {
-  flex-grow: 1;
-}
-
-.logbook > .entries > .entry > .riders > .rider {
-  border-top: 2px solid rgba(62, 67, 84, 1);
-}
-
-.logbook > .entries > .entry > .riders > .rider:last-child {
-  border-bottom: 2px solid rgba(62, 67, 84, 1);
-}
-
-.logbook > .entries > .entry > .riders > .rider > .header {
-  display: flex;
-  font-size: 18px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  align-items: center;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .header > .name {
-  padding-left: 10px;
-  letter-spacing: -1px;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .header > .proficiency {
-  padding-left: 5px;
-  font-weight: 100;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .header > .add-rider {
-  margin-left: auto;
-  font-size: 14px;
-  margin-right: 10px;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: space-between;
-  border-top: 1px solid rgba(62, 67, 84, 1);
-}
-
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round {
-  border-right: 1px solid rgba(62, 67, 84, 1);
-  font-weight: 100;
-  letter-spacing: -.5px;
-  flex-grow: 1;
-  min-width: 38px;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round:last-child {
-  border-right: 0px;
-}
-
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .title, .logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .number {
-  border-bottom: 1px solid rgba(62, 67, 84, 1);
-}
-
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > div {
-  min-height: 25px;
-  padding: 5px;
+  font-size: 16px;
   text-align: center;
-  font-size: 12px;
-  padding-top: 10px;
 }
 
-.logbook > .entries > .entry > .riders > .rider > .motos > .rounds > .round > .title.fraction {
-  font-size: 11px;
+.logbook > .start-here > .pointer {
+  transform: rotate(-45deg);
+  margin-left: auto;
 }
 
-.logbook > .entries > .entry > .footer {
-  border-top: 2px solid rgba(62, 67, 84, 1);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: flex-end;
+.logbook-entry-date-selector {
+  transition: opacity 250ms linear;
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  overflow: hidden;
 }
 
-.logbook > .entries > .entry > .footer > .submitted {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
+.logbook-entry-date-selector.hide {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.logbook > .entries > .entry > .footer > .submitted > .caption {
-  font-weight: 100;
-  letter-spacing: -.5px;
-  padding-right: 10px;
+.logbook-entry-date-selector.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.logbook-entry-date-selector > .close {
+  position: absolute;
+  right: 25px;
+  top: 0px;
+  z-index: 100;
+}
+
+.Cal__Weekdays__root {
+  border-top: 1px solid rgba(var(--border-color), 1);
+}
+
+.Cal__Today__chevron {
+  right: 15px;
 }

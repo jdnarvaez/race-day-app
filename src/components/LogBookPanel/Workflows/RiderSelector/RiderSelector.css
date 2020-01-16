@@ -1,0 +1,57 @@
+.rider-selector {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rider-selector > .header {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.rider-selector > .header > .name-input {
+  flex-grow: 1;
+  display: flex;
+}
+
+.rider-selector > .header > .name-input > .field > input {
+  font-weight: 100;
+  text-transform: uppercase;
+}
+.rider-selector > .header > div {
+  padding-right: 10px;
+}
+
+.rider-selector > .riders {
+  border: 2px solid rgba(var(--border-color), 1);
+  border-radius: var(--border-radius);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.rider-selector > .riders > .rc-swipeout > .rc-swipeout-content {
+  padding: 0px;
+}
+
+.rider-selector > .riders > .rc-swipeout > .rc-swipeout-content > .rider, .rider-selector > .riders > .rider {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+  padding: 10px;
+}
+
+.rider-selector > .riders > .rc-swipeout > .rc-swipeout-content > .rider.selected {
+  background: rgba(10, 10, 10, .2);
+  color: rgba(var(--active-color), 1);
+}
+
+.rider-selector > .riders > .rc-swipeout > .rc-swipeout-content > .rider > .name, .rider-selector > .riders > .rider > .name {
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: -1px;
+}

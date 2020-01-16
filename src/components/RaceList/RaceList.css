@@ -77,20 +77,20 @@
   text-transform: uppercase;
 }
 
-.race-list > .header > .close, .race-list > .header > .refresh {
-  padding-right: 12px;
+.race-list > .header > .close {
+  padding-right: 16px;
   align-self: center;
   cursor: pointer;
   z-index: 1001;
-  font-size: 10px;
+  font-size: 15px;
 }
 
-.race-list > .header > .minimize, .race-list > .header > .maximize {
-  padding-right: 12px;
+.race-list > .header > .current-location, .race-list > .header > .minimize, .race-list > .header > .maximize, .race-list > .header > .refresh {
+  padding-right: 16px;
   align-self: center;
   cursor: pointer;
   z-index: 1001;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .race-row-list {
