@@ -62,6 +62,21 @@ class App extends React.Component {
       storage: new Storage()
     };
 
+    // Read saved tab
+    try {
+      const savedPanelIndex = localStorage.getItem('activePanelIndex');
+
+      if (savedPanelIndex !== null && savedPanelIndex !== undefined) {
+        try {
+          this.state.activePanelIndex = parseInt(savedPanelIndex);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     const categoryFilterOptions = ['National', 'Gold Cup', 'State', 'Multi', 'Practice'];
     this.state.categoryFilterOptions = categoryFilterOptions;
     const defaultCategoryFilters = categoryFilterOptions.slice();
@@ -97,6 +112,7 @@ class App extends React.Component {
   }
 
   setActivePanelIndex = (activePanelIndex) => {
+    localStorage.setItem('activePanelIndex', activePanelIndex.toString());
     this.setState({ activePanelIndex });
   }
 
@@ -268,6 +284,7 @@ class App extends React.Component {
 
   setSearchMode = (mode) => {
     const { searchMode } = this.state;
+    localStorage.setItem('activePanelIndex', '0');
 
     if (mode === searchMode) {
       this.setState({ searchMode : '', activePanelIndex : 0 }, () => {
@@ -318,6 +335,8 @@ class App extends React.Component {
           if (searchMode === 'currentLocation') {
             this.searchByCurrentLocation();
           } else if (searchMode === 'location') {
+            this.searchByLocation(map.getBounds());
+          } else if (searchMode === 'track') {
             this.searchByLocation(map.getBounds());
           }
         });
