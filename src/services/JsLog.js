@@ -705,17 +705,17 @@
                 oldConsoleError = console.error;
                 oldConsoleInfo = console.info;
                 oldConsoleException = console.exception;
-                console.log = bind(this,this.log);
-                console.warn = bind(this,this.warn);
+                // console.log = bind(this,this.log);
+                // console.warn = bind(this,this.warn);
                 console.error = bind(this,this.error);
-                console.info = bind(this,this.info);
+                // console.info = bind(this,this.info);
                 console.exception = bind(this,this.exception);
             } else {
                 console = {
-                    log: bind(this,this.log),
-                    warn: bind(this,this.warn),
+                    // log: bind(this,this.log),
+                    // warn: bind(this,this.warn),
                     error: bind(this,this.error),
-                    info: bind(this,this.info),
+                    // info: bind(this,this.info),
                     exception: bind(this,this.exception)
                 };
             }

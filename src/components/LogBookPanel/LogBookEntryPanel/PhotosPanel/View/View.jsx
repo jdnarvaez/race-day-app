@@ -54,8 +54,6 @@ class PhotoPanel extends React.Component {
     const { imageData } = this.state;
     const { photo, toggleModal } = this.props.data;
 
-    console.log(this.props.data)
-
     return (
       <div className={`carousel-photo-view`} key={photo.id} onClick={(e) => toggleModal(photo.id) } style={{ height : `${innerHeight - 65 - 35}px`, width : `${innerWidth}px` }}>
         {(photo.imageData || imageData) && <img src={`data:image/jpeg;base64,${photo.imageData || imageData}`} />}

@@ -46,6 +46,10 @@ class LogBookEntry {
     });
   }
 
+  static forRider(storage, id) {
+    return storage.like(LogBookEntry.TABLE, 'riders', id).then(results => results.map(r => LogBookEntry.fromJSON(r.json)));
+  }
+
   static addOrUpdate(storage, logBookEntry) {
     const { riderEntries, ...entryToStore } = logBookEntry;
     entryToStore.date = entryToStore.date.toMillis();

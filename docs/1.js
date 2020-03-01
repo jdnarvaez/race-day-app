@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /*global define, global, amd, window*/
 
@@ -806,18 +806,18 @@
         oldConsoleWarn = console.warn;
         oldConsoleError = console.error;
         oldConsoleInfo = console.info;
-        oldConsoleException = console.exception;
-        console.log = bind(this, this.log);
-        console.warn = bind(this, this.warn);
-        console.error = bind(this, this.error);
-        console.info = bind(this, this.info);
+        oldConsoleException = console.exception; // console.log = bind(this,this.log);
+        // console.warn = bind(this,this.warn);
+
+        console.error = bind(this, this.error); // console.info = bind(this,this.info);
+
         console.exception = bind(this, this.exception);
       } else {
         console = {
-          log: bind(this, this.log),
-          warn: bind(this, this.warn),
+          // log: bind(this,this.log),
+          // warn: bind(this,this.warn),
           error: bind(this, this.error),
-          info: bind(this, this.info),
+          // info: bind(this,this.info),
           exception: bind(this, this.exception)
         };
       }

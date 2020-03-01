@@ -1,0 +1,40 @@
+.rider-results-panel {
+  display: flex;
+  flex-direction: column;
+  color: rgba(132, 137, 154, 1);
+  text-transform: uppercase;
+}
+
+.rider-results-panel > .start-here {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  font-weight: 100;
+  padding-bottom: 10px;
+}
+
+.rider-results-panel > .start-here > .caption {
+  text-align: center;
+}
+
+.rider-results-panel > .start-here > .pointer {
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.rider-results-panel > .start-here > .pointer > svg {
+  transform: rotate(90deg);
+}
+
+.rider-results-panel > .rider-results-count {
+  font-weight: 200;
+  text-align: center;
+  font-size: 15px;
+  padding-bottom: 10px;
+  padding-top: 35px;
+}
+
+.rider-results-panel > .rider-results {
+
+}

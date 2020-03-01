@@ -21,6 +21,7 @@ import NearbyTrackList from '../NearbyTrackList';
 import MainPanel from '../MainPanel';
 import LogBookPanel from '../LogBookPanel';
 import RaceResultsPanel from '../RaceResultsPanel';
+import RiderResultsPanel from '../RiderResultsPanel';
 
 import './App.css';
 
@@ -561,7 +562,7 @@ class App extends React.Component {
               <MobileTrackInfo app={this} searchMode={this.state.searchMode} track={this.state.activeTrack} key="track-info" />
             </React.Fragment>
             <LogBookPanel app={this} tracks={this.state.tracks} raceList={this.state.raceList} storage={this.state.storage} key="logbook" />
-            <RaceResultsPanel app={this} storage={this.state.storage} key="race-results" />
+            <RiderResultsPanel app={this} storage={this.state.storage} key="rider-results" />
           </MainPanel>
           <LoadingIndicator className={`${this.state.loaded ? 'hide' : 'show'}`} key="loading-indicator" />
           <MobileNavigation app={this} width={this.state.width} searchMode={this.state.searchMode} activePanelIndex={this.state.activePanelIndex} />
