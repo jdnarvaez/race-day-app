@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationArrow, faMapMarker, faMapMarked, faList, faCompass, faBook, faTasks, faUsers, faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faMapMarker, faMapMarked, faList, faCompass, faBook, faTasks, faUsers, faCogs, faIdCard } from '@fortawesome/free-solid-svg-icons';
 
 import './MobileNavigation.css';
 
@@ -20,7 +20,7 @@ class MobileNavigation extends React.PureComponent {
     const { app, searchMode, activePanelIndex, width } = this.props;
     const { isApp } = this.state;
     const numMapTabs = window.BackgroundGeolocation ? 3 : 2;
-    const numPanels = 1;
+    const numPanels = 2;
     const numTabs = numMapTabs + numPanels;
     const tabWidth = width / numTabs;
     const marginLeft = (activePanelIndex === 0 ? (searchMode === 'location' ? 0 : (searchMode === 'track' ? tabWidth : 2 * tabWidth)) : ((activePanelIndex - 1) * tabWidth + ((numTabs - numPanels) * tabWidth)));
@@ -55,7 +55,9 @@ class MobileNavigation extends React.PureComponent {
         <div className={`ripple btn ${activePanelIndex === 1 ? 'active' : ''}`} onClick={(e) => app.setActivePanelIndex(1)} style={buttonStyle}>
           <FontAwesomeIcon icon={faBook} className="icon" />
         </div>
-
+        <div className={`ripple btn ${activePanelIndex === 2 ? 'active' : ''}`} onClick={(e) => app.setActivePanelIndex(2)} style={buttonStyle}>
+          <FontAwesomeIcon icon={faIdCard} className="icon" />
+        </div>
       </div>
   	);
   }

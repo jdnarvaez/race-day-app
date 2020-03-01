@@ -4,7 +4,6 @@ class Photo {
   static getImageData(storage, id) {
     return storage.getById('photo', id, ['image_data'])
     .then((results) => {
-      console.log(results);
       return results[0].image_data;
     })
   }
