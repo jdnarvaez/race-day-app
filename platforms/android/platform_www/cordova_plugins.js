@@ -354,6 +354,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugins.barcodeScanner"
       ]
+    },
+    {
+      "id": "cordova-plugin-nativegeocoder.NativeGeocoder",
+      "file": "plugins/cordova-plugin-nativegeocoder/www/NativeGeocoder.js",
+      "pluginId": "cordova-plugin-nativegeocoder",
+      "clobbers": [
+        "nativegeocoder"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -374,6 +382,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-actionsheet": "2.3.3",
     "cordova-plugin-camera": "4.1.0",
     "cordova-sqlite-storage": "4.0.0",
-    "phonegap-plugin-barcodescanner": "8.1.0"
+    "phonegap-plugin-barcodescanner": "8.1.0",
+    "cordova-plugin-nativegeocoder": "3.2.2"
   };
 });
