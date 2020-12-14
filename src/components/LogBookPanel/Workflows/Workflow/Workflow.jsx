@@ -29,7 +29,7 @@ class Workflow extends React.Component {
           <div className="title">{headerTitle()}</div>
           <div className="btn right ripple" onClick={(e) => { e.target.blur(); onForward() }} ><FontAwesomeIcon icon={faChevronRight} /></div>
         </div>
-         <MainPanel activePanelIndex={activePanelIndex} width={width} height={height - 65}>
+        <MainPanel activePanelIndex={activePanelIndex} width={width} height={height - 65}>
           {this.props.panels}
         </MainPanel>
       </div>

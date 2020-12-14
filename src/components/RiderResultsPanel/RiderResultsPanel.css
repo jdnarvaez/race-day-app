@@ -36,5 +36,5 @@
 }
 
 .rider-results-panel > .rider-results {
-
+  overflow-x: hidden !important;
 }
