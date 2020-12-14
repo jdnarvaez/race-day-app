@@ -4,7 +4,6 @@ import { faBarcode, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Swipeout from 'rc-swipeout';
 
 import { Input } from '../../../Input';
-import USABMX from '../../../../services/USABMX';
 
 import './RiderSelector.css';
 

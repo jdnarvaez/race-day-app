@@ -1,5 +1,28 @@
 .venue-selector {
   padding: 25px;
+  padding-top: 0px;
+}
+
+.venue-selector > .header {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.venue-selector > .header > .name-input {
+  flex-grow: 1;
+  display: flex;
+}
+
+.venue-selector > .header > .name-input > .field > input {
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+.venue-selector > .header > div {
+  padding-right: 10px;
 }
 
 .venue-selector > .venues {
@@ -15,6 +38,11 @@
   flex-direction: column;
   border-bottom: 1px solid rgba(var(--border-color), 1);
   padding: 10px;
+  min-height: 53px;
+}
+
+.venue-selector > .venues > .no-venues-found {
+  min-height: 33px;
 }
 
 .venue-selector > .venues > .venue.selected {

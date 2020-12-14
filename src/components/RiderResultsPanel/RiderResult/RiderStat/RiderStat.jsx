@@ -15,7 +15,7 @@ class RaceResult extends React.Component {
     const { logBookEntry } = this.state;
 
     return (
-      <div className="rider-stat">
+      <div className="rider-stat" style={this.props.style}>
         <div className="icon">
           <FontAwesomeIcon icon={this.props.icon} />
         </div>

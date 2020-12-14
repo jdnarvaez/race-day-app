@@ -64,7 +64,7 @@ class RiderResultsPanel extends React.Component {
 
     return (
       <div className="rider-result-container" key={rider.id} style={elementStyle}>
-        <RiderResult width={width - 50} height={425} rider={rider} storage={storage} />
+        <RiderResult width={width - 50} height={465} rider={rider} storage={storage} />
       </div>
     )
   }
@@ -94,7 +94,7 @@ class RiderResultsPanel extends React.Component {
           className="rider-results"
           height={height - 35}
           itemCount={riders.length}
-          itemSize={435}
+          itemSize={475}
           layout="vertical"
           width={width}
         >

@@ -348,7 +348,7 @@ class Storage {
 
       if (!result || new Date().getTime() - result.last_updated > TWENTY_FOUR_HOURS) {
         return USABMX.getRacerDetailsByMemberId(bmx_member_id).then((details) => {
-          if (result) {
+          if (details) {
             return update('racer_details', 'bmx_member_id', bmx_member_id, ['data'], [JSON.stringify(details)]).then(() => {
               return details;
             })

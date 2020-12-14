@@ -14,6 +14,26 @@
   padding-right: 10px;
 }
 
+.rider-result > .tabs {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgba(var(--border-color), 1);
+  justify-content: space-around;
+  margin-bottom: 10px;
+  transition: all 250ms linear;
+}
+
+.rider-result > .tabs > .tab {
+  color: rgba(62, 67, 84, 1);
+  font-weight: 100;
+  padding-bottom: 5px;
+}
+
+.rider-result > .tabs > .tab.active {
+  font-weight: 200;
+  color: rgba(var(--active-color), 1);
+}
+
 .rider-result > .name {
   font-weight: 900;
   font-size: 25px;
@@ -21,12 +41,25 @@
   letter-spacing: -.5px;
 }
 
-.rider-result > .stats {
+.rider-result > .main-panel > .panel > .stats {
   display: flex;
   flex-direction: column;
 }
 
-.rider-result > .stats > .divider {
+.rider-result > .main-panel > .panel > .details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.rider-result > .main-panel > .panel > .divider, .rider-result > .main-panel > .panel > .details > .divider {
+  padding-bottom: 5px;
+  color: rgba(62, 67, 84, 1);
+  font-weight: 100;
+  text-align: center;
+}
+
+.rider-result > .main-panel > .panel > .stats > .divider {
   align-self: center;
   font-weight: 100;
   align-content: center;
@@ -36,7 +69,7 @@
   color: rgba(var(--border-color), 1);
 }
 
-.rider-result > .stats > .stats-row {
+.rider-result > .main-panel > .panel > .stats > .stats-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
